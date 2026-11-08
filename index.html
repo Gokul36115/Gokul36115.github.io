@@ -734,6 +734,11 @@ body.light .dock-hud.docked .bar{stroke:#059669}
 body.light .dock-hud.docked{border-color:rgba(4,120,87,.5);box-shadow:0 0 24px rgba(5,150,105,.2),0 10px 30px -10px rgba(15,23,42,.25)}
 body.light .btn.primary{color:#04111F}
 body.light .nav-cta{color:#04111F}
+
+/* mobile: keep everything inside the screen width */
+html,body{overflow-x:clip}
+@media (max-width:760px){.dock-cv{inset:0!important;left:0!important;width:100%!important}}
+@media (max-width:760px){#approach .ap-step.active span{display:block;font-size:10.5px;line-height:1.5}}
 </style>
 </head>
 <body>
@@ -1361,13 +1366,13 @@ body.light .nav-cta{color:#04111F}
       <div class="ap-panel glass">
         <div class="kick">Final approach</div>
         <h2>Every deploy is a docking.</h2>
-        <p>Build, verify, align, connect, confirm. Scroll to bring <b>build-4</b> into production.</p>
+        <p>Three missions, one flight path. Everything I built and learned, in five stages. Scroll to bring it all into production.</p>
         <ol class="ap-steps">
-          <li class="ap-step"><i></i><div><b>Build &amp; test</b><span>./mvnw clean package · tests green</span></div></li>
-          <li class="ap-step"><i></i><div><b>Image pushed</b><span>build-4 → Docker Hub</span></div></li>
-          <li class="ap-step"><i></i><div><b>Smoke test</b><span>/actuator/health = UP</span></div></li>
-          <li class="ap-step"><i></i><div><b>Spin-sync &amp; align</b><span>Terraform plan reviewed · infra matched</span></div></li>
-          <li class="ap-step"><i></i><div><b>Docked</b><span>deployed · post-deploy health check passed</span></div></li>
+          <li class="ap-step"><i></i><div><b>Build &amp; package</b><span>Java · Spring Boot · Maven · Python · Docker</span></div></li>
+          <li class="ap-step"><i></i><div><b>Provision as code</b><span>Terraform · AWS VPC · IAM · EC2 · Lambda · API Gateway</span></div></li>
+          <li class="ap-step"><i></i><div><b>Ship &amp; sync</b><span>Jenkins · GitHub Actions · Kubernetes · Helm · Argo CD</span></div></li>
+          <li class="ap-step"><i></i><div><b>Observe &amp; alert</b><span>Prometheus · Grafana · SLOs · CloudWatch · SNS · Telegram</span></div></li>
+          <li class="ap-step"><i></i><div><b>Secure &amp; docked</b><span>Auth0 (Okta) SSO · OIDC · JWT · SSM · 3 missions live</span></div></li>
         </ol>
         <div class="ap-meter"><span>APPROACH</span><b class="ap-pct">0%</b></div>
       </div>
@@ -2001,8 +2006,8 @@ $$('.deck').forEach(deck=>{const mons=[...deck.querySelectorAll('.mon')],N=mons.
  const ROLES=['CLOUD ENGINEER','DEVOPS ENGINEER','SRE','CLOUD SUPPORT','PLATFORM ENGINEER','INFRASTRUCTURE ENGINEER','PRODUCTION SUPPORT','SYSTEMS ENGINEER','AWS ADMINISTRATOR','MIDDLEWARE ENGINEER','CLOUD OPERATIONS'];
  const ships=ROLES.map((r,i)=>({r,o:i%3,a:Math.floor(i/3)/4*6.283+(i%3)*.75}));
  (function loop(t){requestAnimationFrame(loop);if(!vis||!W)return;g.clearRect(0,0,W,H);
-  cmx+=(mx-cmx)*.05;cmy+=(my-cmy)*.05;const cx=W/2+cmx*18,cy=H*.44+cmy*12,RX=Math.min(W*.42,760);
-  const pt=(o,a,k=1)=>{const rx=RX*k,ry=Math.min(rx*o.f,H/2-44)*k,x=Math.cos(a)*rx,y=Math.sin(a)*ry,c=Math.cos(o.tilt),s=Math.sin(o.tilt);return[cx+x*c-y*s,cy+x*s+y*c,Math.sin(a)]};
+  cmx+=(mx-cmx)*.05;cmy+=(my-cmy)*.05;const MB=W<=760,cx=W/2+cmx*18,cy=H*.44+cmy*12,RX=MB?W*.46:Math.min(W*.42,760);const hr=MB&&dock.querySelector('.dock-h').getBoundingClientRect(),cr=MB&&cv.getBoundingClientRect(),HB=MB&&{l:hr.left-cr.left-6,r:hr.right-cr.left+6,t:hr.top-cr.top-14,b:hr.bottom-cr.top+14};const BT=MB?dock.querySelector('.dock-bottom').getBoundingClientRect().top-cr.top-16:H-230;
+  const pt=(o,a,k=1)=>{const rx=RX*k,ry=(MB?Math.min(rx*o.f*2.1,H/2-150):Math.min(rx*o.f,H/2-44))*k,x=Math.cos(a)*rx,y=Math.sin(a)*ry,c=Math.cos(o.tilt),s=Math.sin(o.tilt);return[cx+x*c-y*s,cy+x*s+y*c,Math.sin(a)]};
   // orbit paths: thin dotted ellipses, brighter in front
   ORB.forEach((o,i)=>{const k=1-i*.12;g.globalCompositeOperation='lighter';for(let q=0;q<420;q++){const a=q/420*6.283,[x,y,z]=pt(o,a,k);g.fillStyle=`rgba(${i===1?'167,139,250':'125,211,252'},${.12+.3*(z+1)/2})`;g.fillRect(x-.7,y-.7,1.4,1.4)}g.globalCompositeOperation='source-over'});
   // a bright dash travels along each orbit so its path reads clearly
@@ -2011,12 +2016,12 @@ $$('.deck').forEach(deck=>{const mons=[...deck.querySelectorAll('.mon')],N=mons.
   const cg=g.createRadialGradient(cx,cy,0,cx,cy,RX*.5);cg.addColorStop(0,'rgba(99,102,241,.10)');cg.addColorStop(1,'rgba(99,102,241,0)');g.fillStyle=cg;g.fillRect(0,0,W,H);
   // ships: trail + glowing head + label, dimmer and smaller when behind
   const order=ships.map(s=>{const o=ORB[s.o];if(!reduce)s.a+=.0011*o.sp;const k=1-s.o*.12,P=pt(o,s.a,k);return{s,o,k,P}}).sort((a,b)=>a.P[2]-b.P[2]);
-  const LBL=[];for(const{s,o,k,P}of order){const hide=(Math.abs(P[0]-cx)<RX*.66&&P[1]>cy-H*.26&&P[1]<cy+H*.3)||P[1]>H-230||W<=760&&false;s.v=(s.v??1)+((hide?0:1)-(s.v??1))*.08;if(s.v<.02)continue;const depth=(P[2]+1)/2,al=(.35+.65*depth)*s.v,col=s.o===1?'196,181,253':'165,243,252';
+  const LBL=[];for(const{s,o,k,P}of order){const hide=MB?(P[0]>HB.l&&P[0]<HB.r&&P[1]>HB.t&&P[1]<HB.b)||P[1]>BT:(Math.abs(P[0]-cx)<RX*.66&&P[1]>cy-H*.26&&P[1]<cy+H*.3)||P[1]>H-230;s.v=(s.v??1)+((hide?0:1)-(s.v??1))*.08;if(s.v<.02)continue;const depth=(P[2]+1)/2,al=(.35+.65*depth)*s.v,col=s.o===1?'196,181,253':'165,243,252';
     g.globalCompositeOperation='lighter';for(let j=1;j<22;j++){const q=pt(o,s.a-j*.014*Math.sign(o.sp),k);g.fillStyle=`rgba(${col},${(1-j/22)*.5*al})`;g.fillRect(q[0]-1,q[1]-1,2,2)}
     if(depth>.985&&s.v>.9){if(!s.pinged||t-s.pinged>3000)s.pinged=t}if(s.pinged&&t-s.pinged<1200){const q=(t-s.pinged)/1200;g.strokeStyle=`rgba(${col},${(1-q)*.7})`;g.lineWidth=1.3;g.beginPath();g.ellipse(P[0],P[1],8+q*46,(8+q*46)*.55,o.tilt,0,6.283);g.stroke();g.lineWidth=1}
     const sz=5+5*depth,gr=g.createRadialGradient(P[0],P[1],0,P[0],P[1],sz*2);gr.addColorStop(0,`rgba(255,255,255,${al})`);gr.addColorStop(.35,`rgba(${col},${.7*al})`);gr.addColorStop(1,`rgba(${col},0)`);g.fillStyle=gr;g.fillRect(P[0]-sz*2,P[1]-sz*2,sz*4,sz*4);
-    g.globalCompositeOperation='source-over';if(W>760)LBL.push({s,P,depth,col,sz})}
-  {g.font='600 11px "JetBrains Mono",monospace';g.textAlign='center';const used=[];LBL.sort((a,b)=>b.depth-a.depth);for(const{s,P,depth,col,sz}of LBL){const cvr=cv.getBoundingClientRect(),vx0=-cvr.left,vx1=vx0+document.documentElement.clientWidth,w=g.measureText(s.r).width+16,lx=Math.max(vx0+w/2+8,Math.min(vx1-w/2-8,P[0]));const hit=y=>used.some(u=>Math.abs(u[0]-lx)<(u[2]+w)/2+6&&Math.abs(u[1]-y)<22);let ly=P[1]-sz*2-8;if(hit(ly)){ly=P[1]+sz*2+14;if(hit(ly)||ly>H-230)continue}used.push([lx,ly,w]);g.globalAlpha=(.45+.55*depth)*s.v;
+    g.globalCompositeOperation='source-over';LBL.push({s,P,depth,col,sz})}
+  {const MOB=W<=760;g.font=(MOB?'600 9px':'600 11px')+' "JetBrains Mono",monospace';g.textAlign='center';const used=[];LBL.sort((a,b)=>b.depth-a.depth);for(const{s,P,depth,col,sz}of LBL){const cvr=cv.getBoundingClientRect(),vx0=-cvr.left,vx1=vx0+document.documentElement.clientWidth,w=g.measureText(s.r).width+16,lx=Math.max(vx0+w/2+8,Math.min(vx1-w/2-8,P[0]));const hit=y=>used.some(u=>Math.abs(u[0]-lx)<(u[2]+w)/2+6&&Math.abs(u[1]-y)<22);let ly=P[1]-sz*2-8;if(hit(ly)){ly=P[1]+sz*2+14;if(hit(ly)||ly>H-230)continue}if(MOB&&ly+9>BT)continue;if(MOB&&lx+w/2>HB.l&&lx-w/2<HB.r&&ly+9>HB.t&&ly-11<HB.b)continue;used.push([lx,ly,w]);g.globalAlpha=(.45+.55*depth)*s.v;
       g.fillStyle='rgba(3,7,16,.8)';g.strokeStyle=`rgba(${col},.45)`;g.beginPath();g.roundRect?g.roundRect(lx-w/2,ly-11,w,18,9):g.rect(lx-w/2,ly-11,w,18);g.fill();g.stroke();g.fillStyle=`rgb(${col})`;g.fillText(s.r,lx,ly+2);g.globalAlpha=1}}
   {const fg=g.createLinearGradient(0,H-260,0,H);fg.addColorStop(0,'rgba(2,4,9,0)');fg.addColorStop(.55,'rgba(2,4,9,.72)');fg.addColorStop(1,'rgba(2,4,9,.9)');g.fillStyle=fg;g.fillRect(0,H-260,W,260)}
  })(0)})();
