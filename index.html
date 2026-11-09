@@ -2224,7 +2224,11 @@ function frame(t){requestAnimationFrame(frame);const dt=Math.min(50,t-last);last
   // docked confirmation ring
   if(docked){const c=proj([0,0,-HZ]),q=(t*.0007)%1,rr=FOC*.12+q*FOC*.9;g.strokeStyle=`rgba(52,211,153,${(1-q)*.6})`;g.lineWidth=2;g.beginPath();g.ellipse(c[0],c[1],rr,rr*.8,0,0,6.283);g.stroke()}
   g.globalCompositeOperation='source-over';
-  {const e=proj(L2W([0,.2,0]));if(e[2]>.1){g.font='600 11px "JetBrains Mono",monospace';g.fillStyle=docked?'#6EE7B7':'#FDBA74';g.textAlign='center';g.fillText(docked?'build-4 · DEPLOYED':'build-4',e[0],e[1])}}
+  {const e=proj(L2W([0,.2,0]));if(e[2]>.1){g.textAlign='center';
+    if(docked){const fs=W<760?13:17,tx='build-4 · LIVE ✓';g.font=`700 ${fs}px "JetBrains Mono",monospace`;const tw=g.measureText(tx).width,pw=tw+30,ph=fs+18,px=Math.max(pw/2+8,Math.min(W-pw/2-8,e[0])),py=e[1]-30;
+      g.save();g.shadowColor='rgba(52,211,153,.85)';g.shadowBlur=22;g.fillStyle='rgba(3,10,10,.9)';g.strokeStyle='rgba(110,231,183,.95)';g.lineWidth=1.6;g.beginPath();g.roundRect?g.roundRect(px-pw/2,py-ph/2,pw,ph,ph/2):g.rect(px-pw/2,py-ph/2,pw,ph);g.fill();g.stroke();g.restore();
+      g.textBaseline='middle';g.fillStyle='#ECFDF5';g.shadowColor='rgba(52,211,153,.9)';g.shadowBlur=10;g.fillText(tx,px,py+1);g.shadowBlur=0;g.textBaseline='alphabetic'}
+    else{g.font='600 11px "JetBrains Mono",monospace';g.fillStyle='#FDBA74';g.fillText('build-4',e[0],e[1])}}}
   // checklist
   const th=[.1,.3,.5,.78,.955];steps.forEach((s,i)=>{s.classList.toggle('done',p>=th[i]);s.classList.toggle('active',p<th[i]&&(i===0||p>=th[i-1]))});
   pct.textContent=Math.round(p*100)+'%';sec.classList.toggle('is-docked',docked);
@@ -2388,7 +2392,22 @@ scene('replay2',D=>{const R=rng(5),core=sph(Math.round(900*D)+120,.3,R),git=sph(
   for(let k=0;k<6;k++){const a=hex(k),b=hex(k+1);for(const y of[-.06,.06])for(let q=0;q<16;q++){const u=q/15;pod.push([lerp(a[0],b[0],u),y,lerp(a[1],b[1],u),.95,(R()-.5)*2,(R()-.5)*2,(R()-.5)*2])}for(let q=0;q<10;q++)pod.push([a[0],-.06+q/9*.12,a[1],.8,(R()-.5)*2,(R()-.5)*2,(R()-.5)*2])}
   for(let q=0;q<90;q++){const a=R()*6.283,r=Math.sqrt(R())*.1;pod.push([Math.cos(a)*r,(R()-.5)*.11,Math.sin(a)*r,.4,(R()-.5)*2,(R()-.5)*2,(R()-.5)*2])}
   for(let q=0;q<70;q++)stream.push([R(),R()]);
-  return{core,git,img,helm,orbits,pod,stream,GP,IP}},
+  /* realistic rocket as a point cloud: white fuselage, red nose cone, 4 fins, porthole, nozzle */
+  const rocket=[],RB=.03,Z0=-.12,Z1=.08,Z2=.22,shade=ny=>.38+.42*Math.max(0,ny);
+  for(let q=0;q<560;q++){const a=R()*6.283,z=Z0+R()*(Z1-Z0);rocket.push([Math.cos(a)*RB,Math.sin(a)*RB,z,shade(Math.sin(a))+.2*R(),'white'])}
+  for(let k=0;k<=8;k++){const z=Z0+k/8*(Z1-Z0);for(let q=0;q<40;q++){const a=q/40*6.283;rocket.push([Math.cos(a)*RB,Math.sin(a)*RB,z,k%4===0?.95:.5,k%4===0?'slate':'white'])}}
+  for(const z of[-.05,-.035]){for(let q=0;q<44;q++){const a=q/44*6.283;rocket.push([Math.cos(a)*(RB+.001),Math.sin(a)*(RB+.001),z,.95,'amber'])}}
+  for(let q=0;q<340;q++){const a=R()*6.283,z=Z1+R()*(Z2-Z1),rd=RB*(1-(z-Z1)/(Z2-Z1));rocket.push([Math.cos(a)*rd,Math.sin(a)*rd,z,shade(Math.sin(a))+.25*R(),'red'])}
+  for(let k=0;k<5;k++){const z=Z1+k/5*(Z2-Z1),rd=RB*(1-k/5);for(let q=0;q<32;q++){const a=q/32*6.283;rocket.push([Math.cos(a)*rd,Math.sin(a)*rd,z,.95,'red'])}}
+  rocket.push([0,0,Z2,1,'white'],[0,0,Z2+.004,1,'white']);
+  for(let f=0;f<4;f++){const a=f*Math.PI/2+Math.PI/4,ca=Math.cos(a),sa=Math.sin(a),A=[RB,-.0],B=[RB,-.12],C=[RB+.058,-.15];
+    const P=(rd,z,b,col)=>rocket.push([ca*rd,sa*rd,z,b,col]);
+    for(let q=0;q<120;q++){let u=R(),v=R();if(u+v>1){u=1-u;v=1-v}P(A[0]+(B[0]-A[0])*u+(C[0]-A[0])*v,A[1]+(B[1]-A[1])*u+(C[1]-A[1])*v,.5+.2*R(),'red')}
+    for(const[p0,p1]of[[A,B],[B,C],[C,A]])for(let q=0;q<26;q++){const t=q/25;P(lerp(p0[0],p1[0],t),lerp(p0[1],p1[1],t),.95,'amber')}}
+  for(let q=0;q<26;q++){const a=q/26*6.283;rocket.push([Math.cos(a)*.013,RB+.003,.035+Math.sin(a)*.013,.95,'cyan'])}
+  for(let q=0;q<40;q++){const a=R()*6.283,r2=Math.sqrt(R())*.012;rocket.push([Math.cos(a)*r2,RB+.002,.035+Math.sin(a)*r2,.6,'cyan'])}
+  for(let k=0;k<3;k++){const z=Z0-k*.012,rd=.022+k*.006;for(let q=0;q<30;q++){const a=q/30*6.283;rocket.push([Math.cos(a)*rd,Math.sin(a)*rd,z,.85,'slate'])}}
+  return{core,git,img,helm,orbits,pod,stream,GP,IP,rocket}},
 (c,S)=>{const{p,t,g}=c,s1=c.seg(0,.15),s2=c.seg(.15,.31),s3=c.seg(.31,.49),s4=c.seg(.49,.65),s5=c.seg(.65,.81),s6=c.seg(.81,.95),{GP,IP}=S;
   c.cam(.3+p*.45+Math.sin(t*.00025)*.06,.42,3.25);
   const bez=(a,b,u,h)=>[lerp(a[0],b[0],u),lerp(a[1],b[1],u)+Math.sin(u*Math.PI)*h,lerp(a[2],b[2],u)];
@@ -2400,14 +2419,16 @@ scene('replay2',D=>{const R=rng(5),core=sph(Math.round(900*D)+120,.3,R),git=sph(
   // Git node + push comet
   for(const q of S.git)c.dot(GP[0]+q[0],GP[1]+q[1],GP[2]+q[2],q[3]*(.3+.7*s1),'amber');c.glow(GP[0],GP[1],GP[2],.25,'amber',.35*s1);
   {const fl=c.seg(.0,.12),hitk=c.seg(.12,.16);
-   if(fl>0&&fl<1){const u=c.ease(fl),P0=[-1.15,-.75,.6],cur=[lerp(P0[0],GP[0],u),lerp(P0[1],GP[1],u)+Math.sin(u*Math.PI)*.25,lerp(P0[2],GP[2],u)],nx=[lerp(P0[0],GP[0],u+.01),lerp(P0[1],GP[1],u+.01)+Math.sin((u+.01)*Math.PI)*.25,lerp(P0[2],GP[2],u+.01)];
-     for(let k=1;k<26;k++){const v=Math.max(0,u-k*.012);c.dot(lerp(P0[0],GP[0],v)+(Math.random()-.5)*.02*k*.1,lerp(P0[1],GP[1],v)+Math.sin(v*Math.PI)*.25,lerp(P0[2],GP[2],v),1-k*.038,k<5?'white':k<12?'amber':'red')}
-     c.flush();const a=c.proj(...cur),b=c.proj(...nx),ang=Math.atan2(b[1]-a[1],b[0]-a[0]),L=c.mobile?20:34;g.save();g.translate(a[0],a[1]);g.rotate(ang);g.shadowColor='#FDBA74';g.shadowBlur=14;
-     const fg=g.createLinearGradient(-L*1.8,0,-L*.5,0);fg.addColorStop(0,'rgba(253,186,116,0)');fg.addColorStop(1,'rgba(255,240,210,.95)');g.fillStyle=fg;g.beginPath();g.moveTo(-L*.5,-L*.18);g.lineTo(-L*(1.4+Math.random()*.5),0);g.lineTo(-L*.5,L*.18);g.fill();
-     g.fillStyle='#E2E8F0';g.beginPath();g.moveTo(L*.6,0);g.quadraticCurveTo(L*.2,-L*.24,-L*.5,-L*.2);g.lineTo(-L*.5,L*.2);g.quadraticCurveTo(L*.2,L*.24,L*.6,0);g.fill();
-     g.fillStyle='#FB923C';g.beginPath();g.moveTo(-L*.2,-L*.2);g.lineTo(-L*.6,-L*.42);g.lineTo(-L*.5,-L*.18);g.fill();g.beginPath();g.moveTo(-L*.2,L*.2);g.lineTo(-L*.6,L*.42);g.lineTo(-L*.5,L*.18);g.fill();
-     g.fillStyle='#38BDF8';g.shadowBlur=6;g.beginPath();g.arc(L*.12,0,L*.08,0,6.283);g.fill();g.restore();
-     c.word('rocket','git push · commit 3f9c2e1',cur[0],cur[1],cur[2],{mode:'type',col:'white',dy:0,dx:150,size:13})}
+   if(fl>0&&fl<1){const u=c.ease(fl),vis=c.ease(clamp(u/.42)),P0=[-1.15,-.75,.6],cur=[lerp(P0[0],GP[0],u),lerp(P0[1],GP[1],u)+Math.sin(u*Math.PI)*.25,lerp(P0[2],GP[2],u)],nx=[lerp(P0[0],GP[0],u+.01),lerp(P0[1],GP[1],u+.01)+Math.sin((u+.01)*Math.PI)*.25,lerp(P0[2],GP[2],u+.01)];
+     for(let k=1;k<26;k++){const v=Math.max(0,u-k*.012);c.dot(lerp(P0[0],GP[0],v)+(Math.random()-.5)*.02*k*.1,lerp(P0[1],GP[1],v)+Math.sin(v*Math.PI)*.25,lerp(P0[2],GP[2],v),(1-k*.038)*vis,k<5?'white':k<12?'amber':'red')}
+     {const d=[nx[0]-cur[0],nx[1]-cur[1],nx[2]-cur[2]],dl=Math.hypot(d[0],d[1],d[2])||1,f=[d[0]/dl,d[1]/dl,d[2]/dl];
+      let r=[-f[2],0,f[0]];const rl=Math.hypot(r[0],r[1],r[2]);r=rl<1e-4?[1,0,0]:[r[0]/rl,0,r[2]/rl];
+      const up=[r[1]*f[2]-r[2]*f[1],r[2]*f[0]-r[0]*f[2],r[0]*f[1]-r[1]*f[0]],SC=(c.mobile?.5:.62)*(.3+.7*vis),ro=t*.0022,cr=Math.cos(ro),sr=Math.sin(ro);
+      const W=(x,y,z)=>{const xr=x*cr-y*sr,yr=x*sr+y*cr;return[cur[0]+SC*(r[0]*xr+up[0]*yr+f[0]*z),cur[1]+SC*(r[1]*xr+up[1]*yr+f[1]*z),cur[2]+SC*(r[2]*xr+up[2]*yr+f[2]*z)]};
+      for(const q of S.rocket){const w=W(q[0],q[1],q[2]);c.dot(w[0],w[1],w[2],q[3]*vis,q[4])}
+      for(let i=0;i<110;i++){const k=Math.random(),sp=.012+k*.05,w=W((Math.random()-.5)*sp,(Math.random()-.5)*sp,-.17-k*.62);c.dot(w[0],w[1],w[2],(1-k)*.95*vis,k<.18?'white':k<.5?'amber':'red')}
+      const n=W(0,0,-.16);c.glow(n[0],n[1],n[2],.12,'amber',.75*vis);c.glow(n[0],n[1],n[2],.05,'white',.7*vis)}
+     c.word('rocket','git push · commit 3f9c2e1',cur[0],cur[1],cur[2],{mode:'type',col:'white',dy:-6,dx:135,size:13,a:u>.3?vis:0})}
    if(hitk>0&&hitk<1){c.ring(GP[0],GP[1],GP[2],.12+hitk*.6,'amber',(1-hitk)*.9,1,2);c.glow(GP[0],GP[1],GP[2],.5,'amber',(1-hitk)*.7)}}
   // CI image assembles at ghcr.io
   const ia=c.ease(s2),spin2=t*.0006;for(const q of S.img){const[x,z]=rotY(q[0],q[2],spin2*ia);c.dot(IP[0]+x+q[4]*(1-ia)*.45,IP[1]+q[1]+q[5]*(1-ia)*.45,IP[2]+z+q[6]*(1-ia)*.45,q[3]*(.15+.85*ia),'cyan')}
