@@ -796,6 +796,11 @@ body.light .theme-t:before{left:35px;
 .mon-screen img{object-position:top center}
 .mon-bar .lbl{display:block}
 @media (max-width:760px){.mon-screen{height:190px!important}.mon-bar .lbl{display:block}}
+
+/* ===== EVIDENCE: crystal-clear screenshots (no scan line, no line overlay, no edge darkening) ===== */
+.mon-screen .scan,.mon-screen .lines{display:none!important}
+.mon-screen:after,.mon-screen:before{content:none!important}
+.mon-screen img{filter:none!important;image-rendering:auto}
 </style>
 </head>
 <body>
