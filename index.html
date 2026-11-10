@@ -1,7 +1,544 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
+<html lang="en"><head>
+<meta charset="utf-8"><style id="qw-theme">:root {
+  --color-bg: #121218 !important;
+  --color-text: #e4e4ed !important;
+  --react-pdf-text-layer: 1 !important;
+  --highlight-bg-color: #b400aa !important;
+  --highlight-selected-bg-color: #006400 !important;
+  --react-pdf-annotation-layer: 1 !important;
+  --annotation-unfocused-field-background: url("data:image/svg+xml;charset=UTF-8,<svg width='1px' height='1px' xmlns='http://www.w3.org/2000/svg'><rect width='100%' height='100%' style='fill:rgba(0, 54, 255, 0.13);'/></svg>") !important;
+  --input-focus-border-color: Highlight !important;
+  --input-focus-outline: 1px solid Canvas !important;
+  --input-unfocused-border-color: transparent !important;
+  --input-disabled-border-color: transparent !important;
+  --input-hover-border-color: black !important;
+  --link-outline: none !important;
+  --qs-data-categorical-01: #6366f1 !important;
+  --qs-data-categorical-06: #0284c7 !important;
+  --qs-data-categorical-10: #f9a8d4 !important;
+  --flow-size-overview-canvas-min-height: 480px !important;
+  --chat-column-max: clamp(888px, 50vw, 1200px) !important;
+  --color-navbar-bg: #1a1a24 !important;
+  --color-navbar-fg: #e4e4ed !important;
+  --color-navbar-divider: #ffffff1f !important;
+  --color-leftnav-bg: #1a1a24 !important;
+  --color-bg-chat-view: #121218 !important;
+  --color-bg-secondary: #1a1a24 !important;
+  --color-bg-tertiary: #1e1e2a !important;
+  --color-bg-hover: #2a2a38 !important;
+  --color-surface: #1e1e2a !important;
+  --color-surface-hover: #2a2a38 !important;
+  --color-surface-active: #353546 !important;
+  --color-border: #ffffff1f !important;
+  --color-border-light: #ffffff0f !important;
+  --color-border-strong: #3a3a4e !important;
+  --background-toggle-off-default: #fff0 !important;
+  --color-primary: #8575ff !important;
+  --color-primary-dark: #4200db !important;
+  --color-primary-light: #8575ff !important;
+  --color-primary-bg: color-mix(in srgb, #8575ff 15%, transparent) !important;
+  --color-primary-hover-border: #4200db !important;
+  --color-nav-icon-active: #8575ff !important;
+  --color-nav-hover-border: #8575ff !important;
+  --color-primary-alpha-3: color-mix(in srgb, #8575ff 3%, transparent) !important;
+  --color-primary-alpha-5: color-mix(in srgb, #8575ff 5%, transparent) !important;
+  --color-primary-alpha-8: color-mix(in srgb, #8575ff 8%, transparent) !important;
+  --color-primary-alpha-12: color-mix(in srgb, #8575ff 12%, transparent) !important;
+  --color-primary-alpha-15: color-mix(in srgb, #8575ff 15%, transparent) !important;
+  --color-primary-alpha-20: color-mix(in srgb, #8575ff 20%, transparent) !important;
+  --color-primary-alpha-25: color-mix(in srgb, #8575ff 25%, transparent) !important;
+  --color-primary-alpha-30: color-mix(in srgb, #8575ff 30%, transparent) !important;
+  --color-primary-alpha-40: color-mix(in srgb, #8575ff 40%, transparent) !important;
+  --color-primary-alpha-50: color-mix(in srgb, #8575ff 50%, transparent) !important;
+  --color-primary-alpha-60: color-mix(in srgb, #8575ff 60%, transparent) !important;
+  --color-primary-subtle: color-mix(in srgb, #8575ff 25%, transparent) !important;
+  --color-primary-border: color-mix(in srgb, #8575ff 50%, transparent) !important;
+  --color-focus-ring: #8575ff !important;
+  --color-sidebar-hover: color-mix(in srgb, #8575ff 15%, transparent) !important;
+  --color-sidebar-hover-solid: color-mix(in srgb, #8575ff 12%, #121218) !important;
+  --block-hover-outline: 1px dashed color-mix(in srgb, #8575ff 50%, transparent) !important;
+  --block-selected-outline: 1px solid #8575ff !important;
+  --block-selection-outline-offset: 2px !important;
+  --block-selected-halo: 0 0 8px color-mix(in srgb, #8575ff 40%, transparent) !important;
+  --color-accent: #8575ff !important;
+  --color-accent-foreground: #8575ff !important;
+  --color-accent-dark: #4200db !important;
+  --color-accent-light: color-mix(in srgb, #8575ff 15%, transparent) !important;
+  --color-accent-inverse: #fff !important;
+  --color-link: #8575ff !important;
+  --color-brand-ai-gradient-start: #6842ff !important;
+  --color-brand-ai-gradient-mid: #d600ba !important;
+  --color-brand-ai-gradient-end: #ff4b14 !important;
+  --color-brand-kiro: #9147ff !important;
+  --color-primary-gradient-end: color-mix(in srgb, #8575ff 35%, transparent) !important;
+  --color-primary-bg-solid: #1a1530 !important;
+  --color-user-bubble: #333843 !important;
+  --color-user-bubble-text: #e4e4ed !important;
+  --color-text-secondary: #a0a0b4 !important;
+  --color-text-tertiary: #8a8a9a !important;
+  --color-text-muted: #8a8a9a !important;
+  --color-text-on-primary: #fff !important;
+  --color-success: #4ade80 !important;
+  --color-success-dark: #00802f !important;
+  --color-success-light: #d9ffd6 !important;
+  --color-success-hover: #005c26 !important;
+  --color-success-bg: #1c2c22 !important;
+  --color-success-border: #0e3d1c !important;
+  --color-success-foreground: #4ade80 !important;
+  --color-success-dark-foreground: #00802f !important;
+  --color-success-text: #4ade80 !important;
+  --color-error: #ff6b6b !important;
+  --color-error-dark: #db0000 !important;
+  --color-error-light: #ffe0e0 !important;
+  --color-error-hover: #3b1a24 !important;
+  --color-error-bg: #3b1a24 !important;
+  --color-error-border: #5e1a24 !important;
+  --color-error-active-border: #db0000 !important;
+  --color-error-foreground: #ff6b6b !important;
+  --color-error-dark-foreground: #db0000 !important;
+  --color-error-inverse: #fff !important;
+  --color-error-text: #ff6b6b !important;
+  --color-warning: #fbbf24 !important;
+  --color-warning-dark: #573a00 !important;
+  --color-warning-light: #fffbbd !important;
+  --color-warning-hover: #db9200 !important;
+  --color-warning-bg: #3d3520 !important;
+  --color-warning-border: #5e4a1a !important;
+  --color-warning-foreground: #fbbf24 !important;
+  --color-warning-dark-foreground: #573a00 !important;
+  --color-warning-inverse: #573a00 !important;
+  --color-surface-warning: #fffbbd !important;
+  --color-text-warning: #573a00 !important;
+  --color-info: #60a5fa !important;
+  --color-info-dark: #006ce0 !important;
+  --color-info-light: #d1f1ff !important;
+  --color-info-hover: #003b8f !important;
+  --color-info-bg: #1a2a42 !important;
+  --color-info-border: #0f3d6e !important;
+  --color-info-foreground: #60a5fa !important;
+  --color-info-dark-foreground: #002a66 !important;
+  --color-info-inverse: #fff !important;
+  --color-overlay: #000000b3 !important;
+  --color-shadow: #0000004d !important;
+  --color-hover: #ffffff0d !important;
+  --color-tooltip-bg: #1e1e2af2 !important;
+  --color-tooltip-text: #e4e4ed !important;
+  --color-voice-purple: #8575ff !important;
+  --color-voice-purple-dark: #4200db !important;
+  --color-voice-purple-light: #8575ff !important;
+  --color-voice-red: #ff6b6b !important;
+  --color-voice-red-dark: #db0000 !important;
+  --color-voice-amber: #fbbf24 !important;
+  --color-voice-purple-glow: #8575ff66 !important;
+  --color-voice-red-glow: #db000066 !important;
+  --font-sans: "Amazon Ember", "Helvetica Neue", "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+  --font-mono: "SF Mono", "Monaco", "Menlo", "Consolas", monospace !important;
+  --text-2xs: .5625rem !important;
+  --text-xs: .625rem !important;
+  --text-sm: .6875rem !important;
+  --text-base: .75rem !important;
+  --text-md: .8125rem !important;
+  --text-lg: .875rem !important;
+  --text-xl: 1rem !important;
+  --text-2xl: 1.125rem !important;
+  --text-3xl: 1.25rem !important;
+  --text-4xl: 1.5rem !important;
+  --text-5xl: 2rem !important;
+  --spacing-1: calc(.25rem * 1) !important;
+  --spacing-1-5: calc(.25rem * 1.5) !important;
+  --spacing-2: calc(.25rem * 2) !important;
+  --spacing-3: calc(.25rem * 3) !important;
+  --spacing-4: calc(.25rem * 4) !important;
+  --spacing-5: calc(.25rem * 5) !important;
+  --spacing-6: calc(.25rem * 6) !important;
+  --spacing-7: calc(.25rem * 7) !important;
+  --spacing-8: calc(.25rem * 8) !important;
+  --spacing-9: calc(.25rem * 9) !important;
+  --spacing-10: calc(.25rem * 10) !important;
+  --border-radius-rounded-lg: 8px !important;
+  --radius-sm: 6px !important;
+  --radius-md: 10px !important;
+  --radius-card: 12px !important;
+  --radius-lg: 16px !important;
+  --radius-pill: 8px !important;
+  --shadow-sm: 0 1px 2px #0003 !important;
+  --shadow-md: 0 4px 12px #0000004d !important;
+  --shadow-lg: 0 4px 16px 4px #0006, 0 2px 6px 1px #0006 !important;
+  --color-success-bg-solid: #1a3d28 !important;
+  --color-error-bg-solid: #4a2028 !important;
+  --color-error-border-solid: #5e1a24 !important;
+  --color-warning-bg-solid: #4a3a1e !important;
+  --color-warning-text: #fbbf24 !important;
+  --color-info-bg-solid: #1a3050 !important;
+  --color-info-bg-solid-alt: #222240 !important;
+  --color-info-text: #60a5fa !important;
+  --color-info-text-alt: #818cf8 !important;
+  --color-emerald: #34d399 !important;
+  --color-teal: #5eead4 !important;
+  --color-code-bg: #1e1e2a !important;
+  --color-code-header-bg: #252535 !important;
+  --color-code-text: #e4e4ed !important;
+  --color-code-border: #2e2e3e !important;
+  --color-code-muted: #6e6e82 !important;
+  --color-inline-code-bg: #1e1e2a !important;
+  --color-inline-code-text: #e4e4ed !important;
+  --color-inline-code-border: #2e2e3e !important;
+  --color-scrollbar-thumb: #3a3a4e !important;
+  --color-scrollbar-track: transparent !important;
+  --qs-data-cat-01: #6366f1 !important;
+  --qs-data-cat-02: #f59e0b !important;
+  --qs-data-cat-03: #06b6d4 !important;
+  --qs-data-cat-04: #a78bfa !important;
+  --qs-data-cat-05: #22c55e !important;
+  --qs-data-cat-06: #0284c7 !important;
+  --qs-data-cat-07: #e879f9 !important;
+  --qs-data-cat-08: #a3e635 !important;
+  --qs-data-cat-09: #60a5fa !important;
+  --qs-data-cat-10: #f9a8d4 !important;
+  --qs-data-cat-11: #f97316 !important;
+  --qs-data-cat-12: #5eead4 !important;
+  --qs-data-cat-other: #a3a3a3 !important;
+  --qs-content: #06080b !important;
+  --qs-main: #06080b !important;
+  --qs-primary-foreground: #f9f9fb !important;
+  --qs-secondary-foreground: #b4b4bb !important;
+  --qs-tertiary-foreground: #8a8a9a !important;
+  --qs-placeholder-foreground: #b4b4bb !important;
+  --qs-divider: #333843 !important;
+  --qs-default-border: #8c8c94 !important;
+  --qs-neutral-soft: #656871 !important;
+  --qs-neutral-gray-50: #1e1e2a !important;
+  --qs-tertiary-background: #1e1e2a !important;
+  --qs-action-hover: #1b232d !important;
+  --qs-primary-default: #8575ff !important;
+  --qs-primary-dark: #d2ccff !important;
+  --qs-primary-medium: #b2a8ff !important;
+  --qs-primary-light: #1b0051 !important;
+  --qs-primary-inverse: #06080b !important;
+  --qs-success-default: #2bb534 !important;
+  --qs-success-dark: #aeffa8 !important;
+  --qs-success-light: #001708 !important;
+  --qs-error-default: #ff7a7a !important;
+  --qs-error-dark: #ffe0e0 !important;
+  --qs-warning-default: #ffe347 !important;
+  --qs-warning-dark: #fffbbd !important;
+  --qs-warning-light: #271a00 !important;
+  --qs-info-default: #42b4ff !important;
+  --qs-info-dark: #b8e7ff !important;
+  --qs-font-sans: "Amazon Ember", "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif !important;
+  --safe-top: 0px !important;
+  --safe-bottom: 0px !important;
+  --safe-left: 0px !important;
+  --safe-right: 0px !important;
+  --qs-action-active: #1b0051 !important;
+  --qs-action-destructive: #b10054 !important;
+  --qs-action-destructive-active: #c2387a !important;
+  --qs-action-destructive-hover: #ba1f69 !important;
+  --qs-action-disabled: #1b232d !important;
+  --qs-action-pressed: #3b3731 !important;
+  --qs-action-primary: #97529b !important;
+  --qs-action-primary-active: #79427c !important;
+  --qs-action-primary-foreground: #fff !important;
+  --qs-action-primary-hover: #884a8c !important;
+  --qs-action-secondary: #25221c !important;
+  --qs-action-secondary-active: #534f4a !important;
+  --qs-action-secondary-hover: #3b3731 !important;
+  --qs-action-secondary-shaded: #25221c !important;
+  --qs-action-secondary-shaded-active: #534f4a !important;
+  --qs-action-secondary-shaded-hover: #3b3731 !important;
+  --qs-active-border: #8575ff !important;
+  --qs-alert-error-bg: #732929 !important;
+  --qs-alert-error-border: #a53030 !important;
+  --qs-alert-info-bg: #2b407d !important;
+  --qs-alert-info-border: #3459c1 !important;
+  --qs-alert-success-bg: #1c4b2f !important;
+  --qs-alert-success-border: #227340 !important;
+  --qs-alert-warning-bg: #65401e !important;
+  --qs-alert-warning-border: #8e5f1a !important;
+  --qs-application-navbar: #8575ff !important;
+  --qs-application-navbar-dark: #d2ccff !important;
+  --qs-application-navbar-foreground: #06080b !important;
+  --qs-application-navbar-light: #1b0051 !important;
+  --qs-automation-dark: #ffccf8 !important;
+  --qs-automation-default: #ff57e9 !important;
+  --qs-automation-light: #1a0015 !important;
+  --qs-automation-medium: #d600ba !important;
+  --qs-automation-soft: #660052 !important;
+  --qs-avatar-blue-bg: #000e23 !important;
+  --qs-avatar-blue-fg: #b8e7ff !important;
+  --qs-avatar-fuchsia-bg: #19001d !important;
+  --qs-avatar-fuchsia-fg: #f8c7ff !important;
+  --qs-avatar-green-bg: #001708 !important;
+  --qs-avatar-green-fg: #aeffa8 !important;
+  --qs-avatar-neutral-bg: #333843 !important;
+  --qs-avatar-neutral-fg: #f9f9fb !important;
+  --qs-avatar-orange-bg: #2b0a00 !important;
+  --qs-avatar-orange-fg: #ffc0ad !important;
+  --qs-avatar-pink-bg: #1a0015 !important;
+  --qs-avatar-pink-fg: #ffccf8 !important;
+  --qs-avatar-primary-bg: #1b0051 !important;
+  --qs-avatar-primary-fg: #d2ccff !important;
+  --qs-avatar-red-bg: #370000 !important;
+  --qs-avatar-red-fg: #ffe0e0 !important;
+  --qs-avatar-violet-bg: #180030 !important;
+  --qs-avatar-violet-fg: #e8d1ff !important;
+  --qs-avatar-yellow-bg: #271a00 !important;
+  --qs-avatar-yellow-fg: #fffbbd !important;
+  --qs-aws-black: #000 !important;
+  --qs-aws-bright-blue-1: #5f95f0 !important;
+  --qs-aws-bright-green-1: #6ee750 !important;
+  --qs-aws-bright-green-2: #86c348 !important;
+  --qs-aws-bright-orange-1: #ff7a28 !important;
+  --qs-aws-bright-pink-1: #ff4d8b !important;
+  --qs-aws-bright-pink-2: #fe7aaa !important;
+  --qs-aws-bright-purple-1: #b052ff !important;
+  --qs-aws-bright-purple-2: #d27de3 !important;
+  --qs-aws-bright-yellow-1: #f3c300 !important;
+  --qs-aws-bright-yellow-2: #ffdd42 !important;
+  --qs-aws-dark-blue-1: #475aa4 !important;
+  --qs-aws-dark-blue-2: #013357 !important;
+  --qs-aws-dark-green-1: #3a601f !important;
+  --qs-aws-dark-green-2: #3b4400 !important;
+  --qs-aws-dark-orange-1: #ac6f5c !important;
+  --qs-aws-dark-orange-2: #a6360d !important;
+  --qs-aws-dark-pink-1: #b85e97 !important;
+  --qs-aws-dark-pink-2: #8f0a3e !important;
+  --qs-aws-dark-purple-1: #97529b !important;
+  --qs-aws-dark-purple-2: #580e98 !important;
+  --qs-aws-dark-yellow-1: #b49e61 !important;
+  --qs-aws-dark-yellow-2: #563b04 !important;
+  --qs-aws-off-white: #f5f3ef !important;
+  --qs-aws-prime-blue: #0578ff !important;
+  --qs-aws-smile-orange: #ff6200 !important;
+  --qs-aws-warm-gray-1: #7e7a72 !important;
+  --qs-aws-white: #fff !important;
+  --qs-blue-100: #dfebfa !important;
+  --qs-blue-1000: #131d37 !important;
+  --qs-blue-300: #a0c6f0 !important;
+  --qs-blue-500: #5288df !important;
+  --qs-blue-700: #3459c1 !important;
+  --qs-blue-900: #2b407d !important;
+  --qs-border-emphasis: #6c6862 !important;
+  --qs-brand: #06080b !important;
+  --qs-brand-foreground: #f9f9fb !important;
+  --qs-brand-navbar: #f9f9fb !important;
+  --qs-brand-navbar-dark: #fff !important;
+  --qs-brand-navbar-foreground: #06080b !important;
+  --qs-brand-navbar-light: #333843 !important;
+  --qs-button-primary-hover: #884a8c !important;
+  --qs-button-secondary-pressed: #534f4a !important;
+  --qs-card-hover: #161411 !important;
+  --qs-chat-default: #1b232d !important;
+  --qs-coachmark: #42b4ff !important;
+  --qs-connection-dark: #ffc0ad !important;
+  --qs-connection-default: #ff6a3d !important;
+  --qs-connection-light: #2b0a00 !important;
+  --qs-connection-medium: #ff6a3d !important;
+  --qs-connection-soft: #661800 !important;
+  --qs-content-inverse: #dedee3 !important;
+  --qs-content-inverse-active: #f9f9fb !important;
+  --qs-contrast-foreground: #f9f9fb !important;
+  --qs-control-selected-bg: #8575ff !important;
+  --qs-control-selected-hover-bg: #d2ccff !important;
+  --qs-control-track: #e1ddd5 !important;
+  --qs-data-categorical-02: #f59e0b !important;
+  --qs-data-categorical-03: #06b6d4 !important;
+  --qs-data-categorical-04: #a78bfa !important;
+  --qs-data-categorical-05: #22c55e !important;
+  --qs-data-categorical-07: #e879f9 !important;
+  --qs-data-categorical-08: #a3e635 !important;
+  --qs-data-categorical-09: #60a5fa !important;
+  --qs-data-categorical-11: #f97316 !important;
+  --qs-data-categorical-12: #5eead4 !important;
+  --qs-data-categorical-other: #a3a3a3 !important;
+  --qs-data-divergent-negative: #fb923c !important;
+  --qs-data-divergent-positive: #818cf8 !important;
+  --qs-data-divergent-red-green-negative: #f87171 !important;
+  --qs-data-divergent-red-green-positive: #4ade80 !important;
+  --qs-data-missing: #404040 !important;
+  --qs-data-sentiment-neutral: #a3a3a3 !important;
+  --qs-data-sentiment-warning: #ffe347 !important;
+  --qs-data-sequential-duochromatic-high: #6366f1 !important;
+  --qs-data-sequential-duochromatic-low: #ddd6fe !important;
+  --qs-data-sequential-monochromatic-high: #818cf8 !important;
+  --qs-default-badge: #656871 !important;
+  --qs-default-badge-dot: #b4b4bb !important;
+  --qs-dimension: #8575ff !important;
+  --qs-dimension-experimental: #8575ff !important;
+  --qs-dimension-experimental-foreground: #8575ff !important;
+  --qs-dimension-foreground: #06080b !important;
+  --qs-disabled: #8c8c94 !important;
+  --qs-disabled-border: #333843 !important;
+  --qs-disabled-foreground: #656871 !important;
+  --qs-divider-light: #1b232d !important;
+  --qs-error-active-border: #ff7a7a !important;
+  --qs-error-border: #370000 !important;
+  --qs-error-foreground: #ff7a7a !important;
+  --qs-error-inverse: #06080b !important;
+  --qs-error-light: #370000 !important;
+  --qs-error-medium: #ff9e9e !important;
+  --qs-error-soft: #700000 !important;
+  --qs-feedback-error-bg: #732929 !important;
+  --qs-feedback-error-border: #a53030 !important;
+  --qs-feedback-info-bg: #2b407d !important;
+  --qs-feedback-info-border: #3459c1 !important;
+  --qs-feedback-success-bg: #1c4b2f !important;
+  --qs-feedback-success-border: #227340 !important;
+  --qs-feedback-warning-bg: #65401e !important;
+  --qs-feedback-warning-border: #8e5f1a !important;
+  --qs-focus-offset: 1px !important;
+  --qs-focus-ring: #5288df !important;
+  --qs-font-base-letter-spacing: .15px !important;
+  --qs-font-display: "Amazon Ember", "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif !important;
+  --qs-font-family: "Amazon Ember", "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif !important;
+  --qs-gradient-automation: #bbb4a9 !important;
+  --qs-gradient-automation-light: #25221c !important;
+  --qs-gradient-connection: #bbb4a9 !important;
+  --qs-gradient-connection-light: #25221c !important;
+  --qs-gradient-insight: #bbb4a9 !important;
+  --qs-gradient-insight-light: #25221c !important;
+  --qs-gradient-visualization: #bbb4a9 !important;
+  --qs-gradient-visualization-light: #25221c !important;
+  --qs-gray-0: #fff !important;
+  --qs-gray-100: #f9f9fb !important;
+  --qs-gray-1000: #06080a !important;
+  --qs-gray-150: #f6f6f9 !important;
+  --qs-gray-200: #f3f3f7 !important;
+  --qs-gray-250: #e8e8ed !important;
+  --qs-gray-300: #dedee3 !important;
+  --qs-gray-350: #c9c9cf !important;
+  --qs-gray-400: #b4b4bb !important;
+  --qs-gray-450: #a0a0a8 !important;
+  --qs-gray-50: #fcfcfd !important;
+  --qs-gray-500: #8c8c94 !important;
+  --qs-gray-550: #787a82 !important;
+  --qs-gray-600: #656871 !important;
+  --qs-gray-650: #4c505a !important;
+  --qs-gray-700: #333843 !important;
+  --qs-gray-750: #272e38 !important;
+  --qs-gray-800: #1b232d !important;
+  --qs-gray-850: #171e26 !important;
+  --qs-gray-900: #131920 !important;
+  --qs-gray-950: #0f141a !important;
+  --qs-green-100: #e0f8e8 !important;
+  --qs-green-300: #93e2b0 !important;
+  --qs-green-400: #5dcb85 !important;
+  --qs-green-700: #227340 !important;
+  --qs-green-900: #1c4b2f !important;
+  --qs-grid-gap: 16px !important;
+  --qs-grid-gap-xl: 24px !important;
+  --qs-hero-banner-button-hover: color-mix(in srgb, #06080b, transparent 60%) !important;
+  --qs-hover-border: #dedee3 !important;
+  --qs-hover-overlay: color-mix(in srgb, #fff, transparent 94%) !important;
+  --qs-indicator-hover: #6c6862 !important;
+  --qs-indicator-rest: #3b3731 !important;
+  --qs-info-inverse: #06080b !important;
+  --qs-info-light: #000e23 !important;
+  --qs-info-medium: #75cfff !important;
+  --qs-info-soft: #002a66 !important;
+  --qs-ink-hover: #dcdcdb !important;
+  --qs-insight-dark: #f8c7ff !important;
+  --qs-insight-default: #ec70ff !important;
+  --qs-insight-light: #19001d !important;
+  --qs-insight-medium: #ec70ff !important;
+  --qs-insight-soft: #590066 !important;
+  --qs-kernel-purple: #97529b !important;
+  --qs-kernel-raspberry: #b10054 !important;
+  --qs-kernel-violet: #6050f9 !important;
+  --qs-main-foreground: #f9f9fb !important;
+  --qs-main-secondary-foreground: #b4b4bb !important;
+  --qs-measure: #2bb534 !important;
+  --qs-measure-experimental: #ffe347 !important;
+  --qs-measure-experimental-foreground: #ffe347 !important;
+  --qs-measure-foreground: #06080b !important;
+  --qs-neutral-black: #fff !important;
+  --qs-neutral-dark: #dedee3 !important;
+  --qs-neutral-deep: #b4b4bb !important;
+  --qs-neutral-default: #333843 !important;
+  --qs-neutral-light: #1b232d !important;
+  --qs-neutral-lightest: #131920 !important;
+  --qs-neutral-medium: #8c8c94 !important;
+  --qs-neutral-strong: #f9f9fb !important;
+  --qs-neutral-white: #06080b !important;
+  --qs-on-fill: #fff !important;
+  --qs-option-hover: #1f1d19 !important;
+  --qs-overlay: color-mix(in srgb, #f9f9fb, transparent 50%) !important;
+  --qs-primary-inverse-foreground: #06080b !important;
+  --qs-primary-soft: #35009e !important;
+  --qs-red-100: #fbe6e6 !important;
+  --qs-red-300: #f1b0b0 !important;
+  --qs-red-700: #a53030 !important;
+  --qs-red-900: #732929 !important;
+  --qs-secondary: #333843 !important;
+  --qs-secondary-dark: #656871 !important;
+  --qs-secondary-light: #1b232d !important;
+  --qs-segment-fill: #3b3731 !important;
+  --qs-selected: #25221c !important;
+  --qs-shadow: #00000029 !important;
+  --qs-shadow-lg: 0 4px 16px 4px #00000029, 0 2px 6px 1px #00000029 !important;
+  --qs-shadow-md: 0 0 2px 0 #00000029, 0 2px 8px 1px #00000029 !important;
+  --qs-shadow-pin-left: inset -4px 0 4px -4px #00000029 !important;
+  --qs-shadow-pin-right: inset 4px 0 4px -4px #00000029 !important;
+  --qs-shadow-sm: 0 0 2px 0 #00000029, 0 0 4px 0 #00000029 !important;
+  --qs-shadow-xl: 0 4px 8px 2px #00000029, 0 6px 20px 4px #00000029 !important;
+  --qs-sidebar-hover: #1f1d19 !important;
+  --qs-spice: #ff9800 !important;
+  --qs-success-inverse: #06080b !important;
+  --qs-success-medium: #62ff57 !important;
+  --qs-success-soft: #00471e !important;
+  --qs-tag-default: #333843 !important;
+  --qs-tag-soft-border: #656871 !important;
+  --qs-toggle-selected: #3b3731 !important;
+  --qs-toggle-selected-hover: #534f4a !important;
+  --qs-toggle-selected-pressed: #6c6862 !important;
+  --qs-toggle-tile-lg: calc(.25rem * 15) !important;
+  --qs-toggle-tile-md: calc(.25rem * 12) !important;
+  --qs-toggle-tile-sm: calc(.25rem * 8) !important;
+  --qs-tonal-destructive-bg: #732929 !important;
+  --qs-tonal-destructive-fg: #fbe6e6 !important;
+  --qs-tonal-destructive-hover: #813c3c !important;
+  --qs-tonal-destructive-pressed: #8e4f4f !important;
+  --qs-transparent: transparent !important;
+  --qs-visualization-dark: #e8d1ff !important;
+  --qs-visualization-default: #bf80ff !important;
+  --qs-visualization-light: #180030 !important;
+  --qs-visualization-medium: #bf80ff !important;
+  --qs-visualization-soft: #45008a !important;
+  --qs-warm-100: #f5f3ef !important;
+  --qs-warm-1000: #080705 !important;
+  --qs-warm-200: #ede9e3 !important;
+  --qs-warm-300: #e1ddd5 !important;
+  --qs-warm-400: #cdc7bd !important;
+  --qs-warm-450: #bbb4a9 !important;
+  --qs-warm-500: #aba398 !important;
+  --qs-warm-550: #928b82 !important;
+  --qs-warm-600: #6c6862 !important;
+  --qs-warm-700: #3b3731 !important;
+  --qs-warm-800: #25221c !important;
+  --qs-warm-850: #1f1d19 !important;
+  --qs-warm-900: #1a1814 !important;
+  --qs-warm-950: #151310 !important;
+  --qs-warning-experimental: #ffe347 !important;
+  --qs-warning-experimental-light: #271a00 !important;
+  --qs-warning-experimental-light-foreground: #271a00 !important;
+  --qs-warning-inverse: #fffbbd !important;
+  --qs-warning-medium: #fef571 !important;
+  --qs-warning-soft: #855900 !important;
+  --qs-width-modal-lg: 1136px !important;
+  --qs-width-modal-md: 600px !important;
+  --qs-width-modal-sm: 384px !important;
+  --qs-yellow-100: #f7f3ca !important;
+  --qs-yellow-300: #e6d05e !important;
+  --qs-yellow-400: #ddbb32 !important;
+  --qs-yellow-700: #8e5f1a !important;
+  --qs-yellow-800: #764c1d !important;
+  --qs-yellow-900: #65401e !important;
+  --qs-duration-reorder: .125s !important;
+  --qs-ease-reorder: ease-in-out !important;
+  --z-subtask-modal: 10000 !important;
+  --z-above-subtask-modal: 10001 !important;
+}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Gokul N · The Cloud Transition</title>
 <meta name="description" content="Gokul N, Middleware Engineer at Kyndryl. 3.2+ years keeping enterprise Java platforms alive in 24x7 production. Building self-healing systems on AWS with Terraform, Docker, Jenkins and CloudWatch.">
@@ -19,10 +556,10 @@
 <meta name="twitter:description" content="Three years of keeping production alive. Now engineering systems that heal themselves.">
 <meta name="twitter:image" content="https://gokul36115.github.io/assets/og-preview.png">
 <meta name="theme-color" content="#030712"><meta name="color-scheme" content="dark">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%23030712'/><circle cx='32' cy='32' r='14' fill='none' stroke='%2322D3EE' stroke-width='4'/><circle cx='50' cy='16' r='5' fill='%23A78BFA'/></svg>">
+<link rel="icon" href="data:image/svg+xml,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'&gt;&lt;rect width='64' height='64' rx='14' fill='%23030712'/&gt;&lt;circle cx='32' cy='32' r='14' fill='none' stroke='%2322D3EE' stroke-width='4'/&gt;&lt;circle cx='50' cy='16' r='5' fill='%23A78BFA'/&gt;&lt;/svg&gt;">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#020306; --text:#E2E8F0; --muted:#94A3B8; --dim:#64748B; --line:rgba(148,163,184,.14);
@@ -801,6 +1338,58 @@ body.light .theme-t:before{left:35px;
 .mon-screen .scan,.mon-screen .lines{display:none!important}
 .mon-screen:after,.mon-screen:before{content:none!important}
 .mon-screen img{filter:none!important;image-rendering:auto}
+
+/* ---------- signal in the dust (Interstellar interlude) ---------- */
+.dust{height:250vh;padding:0!important;position:relative}
+.dust-stage{position:sticky;top:0;height:100vh;overflow:hidden}
+.dust-cv{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;
+  -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 12%,#000 93%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0,#000 12%,#000 93%,transparent 100%)}
+.dust-ui{position:relative;height:100%;pointer-events:none}
+.dust-copy{position:absolute;left:28px;top:112px;max-width:440px}
+.dust-copy h2{font-size:clamp(30px,3.8vw,48px);text-shadow:0 4px 30px rgba(0,0,0,.7)}
+.dust-copy p{color:#CBD5E1;font-size:15.5px;margin-top:14px;text-shadow:0 2px 14px rgba(0,0,0,.85)}
+.dust .kick{color:#FDBA74}.dust .kick:before{background:#FDBA74}
+.dust-hint{margin-top:14px;font-family:var(--mono);font-size:11px;letter-spacing:1.8px;color:#94A3B8}
+.dust-hint b{color:#FDBA74;font-weight:600}
+.dust-read{position:absolute;right:28px;top:112px;width:300px;padding:16px 18px;pointer-events:auto;font-family:var(--mono);transition:border-color .4s,box-shadow .4s}
+.dr-status{display:flex;align-items:center;gap:10px;font-size:10.5px;letter-spacing:1.5px;color:#FDBA74;margin-bottom:12px;min-height:16px}
+.dr-dot{flex:none;width:7px;height:7px;border-radius:50%;background:#FDBA74;box-shadow:0 0 10px #FB923C;animation:blip 1.6s infinite}
+.dr-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:7px 0;border-top:1px solid var(--line);font-size:11px;letter-spacing:1.2px;color:#64748B}
+.dr-row code{font-family:var(--mono);font-size:14px;letter-spacing:3px;color:#E2E8F0}
+.dr-row b{min-width:66px;text-align:right;color:#7DD3FC;font-weight:600}
+.dr-out{margin-top:8px;padding-top:12px;border-top:1px solid var(--line);opacity:0;transform:translateY(8px);transition:opacity .6s,transform .6s}
+.dr-out.on{opacity:1;transform:none}
+.dr-out b{display:block;font-family:var(--display);font-size:21px;color:#fff;letter-spacing:.3px}
+.dr-out span{display:block;font-size:11px;letter-spacing:1.3px;color:#94A3B8;margin-top:4px;line-height:1.5}
+.dust-read.done{border-color:rgba(52,211,153,.5);box-shadow:0 0 30px -8px rgba(52,211,153,.45)}
+.dust-read.done .dr-status{color:#6EE7B7}.dust-read.done .dr-dot{background:#34D399;box-shadow:0 0 10px #34D399}
+body.light .dust-cv{filter:invert(1) hue-rotate(180deg) saturate(1.3)}
+body.light .dust-copy h2{text-shadow:none}body.light .dust-copy p{color:#334155;text-shadow:none}
+body.light .dr-row code,body.light .dr-out b{color:#0B1220}body.light .dr-status{color:#B45309}body.light .dr-row b{color:#0E7490}
+@media (max-width:1000px){.dust-read{top:auto;bottom:22px;left:20px;right:20px;width:auto}body.dust-on .dock-hud{opacity:0!important;pointer-events:none;transition:opacity .3s}}
+@media (max-width:760px){.dust-copy{left:20px;right:20px;top:84px}.dust-copy p,.dust-hint{display:none}.dust-read{left:12px;right:12px;bottom:12px;padding:12px 14px}.dr-row code{font-size:12px;letter-spacing:2px}.dr-out b{font-size:16px}}
+
+.dust-src{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px;max-width:440px}
+.dust-src span{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10.5px;letter-spacing:1.2px;color:#64748B;padding:4px 9px;border-radius:7px;border:1px solid rgba(148,163,184,.18);background:rgba(3,6,13,.55);transition:color .4s,border-color .4s,box-shadow .4s}
+.dust-src span:before{content:"";width:5px;height:5px;border-radius:50%;background:#334155;transition:background .4s,box-shadow .4s}
+.dust-src span.on{color:#FDE68A;border-color:rgba(253,186,116,.55);box-shadow:0 0 14px -6px rgba(253,186,116,.8)}
+.dust-src span.on:before{background:#FDBA74;box-shadow:0 0 6px #FB923C}
+.dust-src.done span{color:#A7F3D0;border-color:rgba(52,211,153,.5);box-shadow:0 0 14px -6px rgba(52,211,153,.7)}.dust-src.done span:before{background:#34D399;box-shadow:0 0 6px #34D399}
+body.light .dust-src span{background:rgba(255,255,255,.85);color:#475569}body.light .dust-src span.on{color:#92400E}body.light .dust-src.done span{color:#047857}
+@media (max-width:760px){.dust-src{gap:5px;margin-top:12px}.dust-src span{font-size:9.5px;padding:3px 7px}}
+/* ---------- stat cards: live readouts beside the colour bar ---------- */
+.stat-cv{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+.stat>*:not(.stat-cv){position:relative;z-index:1}
+body.light .stat-cv{filter:invert(1) hue-rotate(180deg) saturate(1.3)}
+/* ---------- journey spine: particle stream ---------- */
+.spine-cv{position:absolute;left:7px;top:0;width:42px;height:100%;pointer-events:none;z-index:1}
+body.light .spine-cv{filter:invert(1) hue-rotate(180deg) saturate(1.3)}
+
+/* ---------- card readouts (principles · credentials · briefing) ---------- */
+.mini-cv{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+.pr>*:not(.mini-cv):not(.glow),.cred>*:not(.mini-cv),.ab>*:not(.mini-cv){position:relative;z-index:1}
+body.light .mini-cv{filter:invert(1) hue-rotate(180deg) saturate(1.3)}
+body.dust-on .dock-hud{opacity:0!important;pointer-events:none;transition:opacity .3s}
 </style>
 </head>
 <body>
@@ -810,8 +1399,8 @@ body.light .theme-t:before{left:35px;
 <div class="cur-ring" id="curRing"></div>
 
 <div class="dock-hud" id="dockHud">
-  <div class="dh-gauge"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" class="trk"/><circle cx="50" cy="50" r="44" class="bar" id="dhBar"/>
-    <g class="ticks"><line x1="50" y1="2" x2="50" y2="7" transform="rotate(0 50 50)"/><line x1="50" y1="2" x2="50" y2="5" transform="rotate(10 50 50)"/><line x1="50" y1="2" x2="50" y2="5" transform="rotate(20 50 50)"/><line x1="50" y1="2" x2="50" y2="7" transform="rotate(30 50 50)"/><line x1="50" y1="2" x2="50" y2="5" transform="rotate(40 50 50)"/><line x1="50" y1="2" x2="50" y2="5" transform="rotate(50 50 50)"/><line x1="50" y1="2" x2="50" y2="7" transform="rotate(60 50 50)"/><line x1="50" y1="2" x2="50" y2="5" transform="rotate(70 50 50)"/><line x1="50" y1="2" x2="50" y2="5" transform="rotate(80 50 50)"/><line x1="50" y1="2" x2="50" y2="7" transform="rotate(90 50 50)"/><line x1="50" y1="2" x2="50" y2="5" transform="rotate(100 50 50)"/><line x1="50" y1="2" x2="50" y2="5" transform="rotate(110 50 50)"/><line x1="50" y1="2" x2="50" y2="7" transform="rotate(120 50 50)"/><line x1="50" y1="2" x2="50" y2="5" transform="rotate(130 50 50)"/><line x1="50" y1="2" x2="50" y2="5" transform="rotate(140 50 50)"/><line x1="50" y1="2" x2="50" y2="7" transform="rotate(150 50 50)"/><line x1="50" y1="2" x2="50" y2="5" transform="rotate(160 50 50)"/><line x1="50" y1="2" x2="50" y2="5" transform="rotate(170 50 50)"/><line x1="50" y1="2" x2="50" y2="7" transform="rotate(180 50 50)"/><line x1="50" y1="2" x2="50" y2="5" transform="rotate(190 50 50)"/><line x1="50" y1="2" x2="50" y2="5" transform="rotate(200 50 50)"/><line x1="50" y1="2" x2="50" y2="7" transform="rotate(210 50 50)"/><line x1="50" y1="2" x2="50" y2="5" transform="rotate(220 50 50)"/><line x1="50" y1="2" x2="50" y2="5" transform="rotate(230 50 50)"/><line x1="50" y1="2" x2="50" y2="7" transform="rotate(240 50 50)"/><line x1="50" y1="2" x2="50" y2="5" transform="rotate(250 50 50)"/><line x1="50" y1="2" x2="50" y2="5" transform="rotate(260 50 50)"/><line x1="50" y1="2" x2="50" y2="7" transform="rotate(270 50 50)"/><line x1="50" y1="2" x2="50" y2="5" transform="rotate(280 50 50)"/><line x1="50" y1="2" x2="50" y2="5" transform="rotate(290 50 50)"/><line x1="50" y1="2" x2="50" y2="7" transform="rotate(300 50 50)"/><line x1="50" y1="2" x2="50" y2="5" transform="rotate(310 50 50)"/><line x1="50" y1="2" x2="50" y2="5" transform="rotate(320 50 50)"/><line x1="50" y1="2" x2="50" y2="7" transform="rotate(330 50 50)"/><line x1="50" y1="2" x2="50" y2="5" transform="rotate(340 50 50)"/><line x1="50" y1="2" x2="50" y2="5" transform="rotate(350 50 50)"/></g></svg>
+  <div class="dh-gauge"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" class="trk"></circle><circle cx="50" cy="50" r="44" class="bar" id="dhBar"></circle>
+    <g class="ticks"><line x1="50" y1="2" x2="50" y2="7" transform="rotate(0 50 50)"></line><line x1="50" y1="2" x2="50" y2="5" transform="rotate(10 50 50)"></line><line x1="50" y1="2" x2="50" y2="5" transform="rotate(20 50 50)"></line><line x1="50" y1="2" x2="50" y2="7" transform="rotate(30 50 50)"></line><line x1="50" y1="2" x2="50" y2="5" transform="rotate(40 50 50)"></line><line x1="50" y1="2" x2="50" y2="5" transform="rotate(50 50 50)"></line><line x1="50" y1="2" x2="50" y2="7" transform="rotate(60 50 50)"></line><line x1="50" y1="2" x2="50" y2="5" transform="rotate(70 50 50)"></line><line x1="50" y1="2" x2="50" y2="5" transform="rotate(80 50 50)"></line><line x1="50" y1="2" x2="50" y2="7" transform="rotate(90 50 50)"></line><line x1="50" y1="2" x2="50" y2="5" transform="rotate(100 50 50)"></line><line x1="50" y1="2" x2="50" y2="5" transform="rotate(110 50 50)"></line><line x1="50" y1="2" x2="50" y2="7" transform="rotate(120 50 50)"></line><line x1="50" y1="2" x2="50" y2="5" transform="rotate(130 50 50)"></line><line x1="50" y1="2" x2="50" y2="5" transform="rotate(140 50 50)"></line><line x1="50" y1="2" x2="50" y2="7" transform="rotate(150 50 50)"></line><line x1="50" y1="2" x2="50" y2="5" transform="rotate(160 50 50)"></line><line x1="50" y1="2" x2="50" y2="5" transform="rotate(170 50 50)"></line><line x1="50" y1="2" x2="50" y2="7" transform="rotate(180 50 50)"></line><line x1="50" y1="2" x2="50" y2="5" transform="rotate(190 50 50)"></line><line x1="50" y1="2" x2="50" y2="5" transform="rotate(200 50 50)"></line><line x1="50" y1="2" x2="50" y2="7" transform="rotate(210 50 50)"></line><line x1="50" y1="2" x2="50" y2="5" transform="rotate(220 50 50)"></line><line x1="50" y1="2" x2="50" y2="5" transform="rotate(230 50 50)"></line><line x1="50" y1="2" x2="50" y2="7" transform="rotate(240 50 50)"></line><line x1="50" y1="2" x2="50" y2="5" transform="rotate(250 50 50)"></line><line x1="50" y1="2" x2="50" y2="5" transform="rotate(260 50 50)"></line><line x1="50" y1="2" x2="50" y2="7" transform="rotate(270 50 50)"></line><line x1="50" y1="2" x2="50" y2="5" transform="rotate(280 50 50)"></line><line x1="50" y1="2" x2="50" y2="5" transform="rotate(290 50 50)"></line><line x1="50" y1="2" x2="50" y2="7" transform="rotate(300 50 50)"></line><line x1="50" y1="2" x2="50" y2="5" transform="rotate(310 50 50)"></line><line x1="50" y1="2" x2="50" y2="5" transform="rotate(320 50 50)"></line><line x1="50" y1="2" x2="50" y2="7" transform="rotate(330 50 50)"></line><line x1="50" y1="2" x2="50" y2="5" transform="rotate(340 50 50)"></line><line x1="50" y1="2" x2="50" y2="5" transform="rotate(350 50 50)"></line></g></svg>
     <div class="dh-pct"><b id="dockp">0</b><small>%</small></div></div>
   <canvas class="dh-radar" id="dhRadar" width="132" height="132"></canvas>
   <div class="dh-info">
@@ -855,10 +1444,10 @@ body.light .theme-t:before{left:35px;
 <!-- ============ STATS ============ -->
 <div class="wrap">
   <div class="stats">
-    <div class="stat glass tilt reveal" style="--c:var(--cyan)"><div class="num"><span class="count" data-to="3.2" data-dec="1">0</span><small>+ yrs</small></div><div class="lbl">in production support</div><div class="sub">enterprise middleware, L3</div><div class="bar"></div></div>
-    <div class="stat glass tilt reveal d1" style="--c:var(--green)"><div class="num"><span class="count" data-to="3000" data-sep="1">0</span><small>+</small></div><div class="lbl">servers in scope</div><div class="sub">Linux · AIX · Windows</div><div class="bar"></div></div>
-    <div class="stat glass tilt reveal d2" style="--c:var(--violet)"><div class="num">24<small>×7</small></div><div class="lbl">rotational on-call</div><div class="sub">day, evening and night shifts</div><div class="bar"></div></div>
-    <div class="stat glass tilt reveal d3" style="--c:var(--amber)"><div class="num"><span class="count" data-to="4">0</span><small> certs</small></div><div class="lbl">AWS &amp; Microsoft Azure</div><div class="sub">all verifiable</div><div class="bar"></div></div>
+    <div class="stat glass tilt reveal" style="--c:var(--cyan)"><canvas class="stat-cv" data-g="pulse" aria-hidden="true"></canvas><div class="num"><span class="count" data-to="3.2" data-dec="1">0</span><small>+ yrs</small></div><div class="lbl">in production support</div><div class="sub">enterprise middleware, L3</div><div class="bar"></div></div>
+    <div class="stat glass tilt reveal d1" style="--c:var(--green)"><canvas class="stat-cv" data-g="servers" aria-hidden="true"></canvas><div class="num"><span class="count" data-to="3000" data-sep="1">0</span><small>+</small></div><div class="lbl">servers in scope</div><div class="sub">Linux · AIX · Windows</div><div class="bar"></div></div>
+    <div class="stat glass tilt reveal d2" style="--c:var(--violet)"><canvas class="stat-cv" data-g="oncall" aria-hidden="true"></canvas><div class="num">24<small>×7</small></div><div class="lbl">rotational on-call</div><div class="sub">day, evening and night shifts</div><div class="bar"></div></div>
+    <div class="stat glass tilt reveal d3" style="--c:var(--amber)"><canvas class="stat-cv" data-g="certs" aria-hidden="true"></canvas><div class="num"><span class="count" data-to="4">0</span><small> certs</small></div><div class="lbl">AWS &amp; Microsoft Azure</div><div class="sub">all verifiable</div><div class="bar"></div></div>
   </div>
 </div>
 
@@ -872,7 +1461,7 @@ body.light .theme-t:before{left:35px;
     </div><div class="artifact" data-art="wormhole"><canvas></canvas><div class="art-label"><span>EINSTEIN–ROSEN BRIDGE</span><p>Data center → cloud: the same Java workloads cross over to AWS. Hover to speed up the migration</p><em>hover to engage</em></div></div></div>
 
     <div class="journey" id="journeyEl">
-      <div class="spine"><div class="spine-fill" id="spineFill"></div></div>
+      <div class="spine"><div class="spine-fill" id="spineFill"></div></div><canvas class="spine-cv" aria-hidden="true"></canvas>
 
       <div class="leg reveal" style="--c:var(--blue)">
         <div class="card glass tilt"><div class="when">2019 — 2023 · LAUNCH</div><h3>B.Tech, Information Technology</h3><div class="where">Panimalar Engineering College · CGPA 8.64</div>
@@ -926,13 +1515,13 @@ body.light .theme-t:before{left:35px;
     <h2>Lessons you only learn <span class="soft">at 3 a.m.</span></h2>
     
     </div><div class="artifact" data-art="pulsar"><canvas></canvas><div class="art-label"><span>PULSAR</span><p>A steady heartbeat: health checks every 15 s, never skipped</p><em>hover to engage</em></div></div></div><div class="principles">
-      <div class="pr glass tilt reveal" style="--c:var(--pink)"><div class="glow"></div><div class="idx">01</div><h3>Healthy is not the same as working.</h3>
+      <div class="pr glass tilt reveal" style="--c:var(--pink)"><canvas class="mini-cv" data-g="health" data-a=".idx" data-text="1" aria-hidden="true"></canvas><div class="glow"></div><div class="idx">01</div><h3>Healthy is not the same as working.</h3>
         <p>I once watched a container report <b>healthy</b> while serving 500s after an OutOfMemoryError. Now I check what the user actually sees, and I make failures loud.</p></div>
-      <div class="pr glass tilt reveal d1" style="--c:var(--cyan)"><div class="glow"></div><div class="idx">02</div><h3>Automate the night-shift fix.</h3>
+      <div class="pr glass tilt reveal d1" style="--c:var(--cyan)"><canvas class="mini-cv" data-g="restart" data-a=".idx" data-text="1" aria-hidden="true"></canvas><div class="glow"></div><div class="idx">02</div><h3>Automate the night-shift fix.</h3>
         <p>If I've restarted it by hand at night, it should be a <b>restart policy</b>, a <b>pipeline</b> or an <b>alarm</b>. People should handle judgement calls, not routine restarts.</p></div>
-      <div class="pr glass tilt reveal d2" style="--c:var(--amber)"><div class="glow"></div><div class="idx">03</div><h3>Every change needs a way back.</h3>
+      <div class="pr glass tilt reveal d2" style="--c:var(--amber)"><canvas class="mini-cv" data-g="rollback" data-a=".idx" data-text="1" aria-hidden="true"></canvas><div class="glow"></div><div class="idx">03</div><h3>Every change needs a way back.</h3>
         <p>Weekend release windows taught me to plan for rollback first: <b>reviewed plans</b>, <b>immutable build tags</b>, and a redeploy that takes minutes, not a war room.</p></div>
-      <div class="pr glass tilt reveal d3" style="--c:var(--green)"><div class="glow"></div><div class="idx">04</div><h3>Least privilege, by default.</h3>
+      <div class="pr glass tilt reveal d3" style="--c:var(--green)"><canvas class="mini-cv" data-g="least" data-a=".idx" data-text="1" aria-hidden="true"></canvas><div class="glow"></div><div class="idx">04</div><h3>Least privilege, by default.</h3>
         <p>Certificates, keystores, CVEs and Okta SSO integrations are daily work for me. In the cloud that means <b>no SSH</b>, <b>IAM roles instead of keys</b>, one-IP access, and <b>no secrets in Git</b>.</p></div>
     </div>
   </div>
@@ -960,6 +1549,28 @@ body.light .theme-t:before{left:35px;
   </div>
 </section>
 
+<!-- ============ SIGNAL IN THE DUST (Interstellar interlude) ============ -->
+<section class="dust" id="signal" aria-label="Interlude: a signal in the dust">
+  <div class="dust-stage">
+    <canvas class="dust-cv" aria-hidden="true"></canvas>
+    <div class="wrap dust-ui">
+      <div class="dust-copy">
+        <div class="kick">Interlude · signal in the dust</div>
+        <h2>It's not a ghost.<br><span class="soft">It's a signal.</span></h2>
+        <p>After the storm, the dust didn't settle at random. It fell into a pattern. Production is the same. JVM logs, container restarts, Kubernetes pod events, pipeline runs, CloudWatch alarms and Lambda checks look like noise, until you read them together as one signal.</p>
+        <div class="dust-src" aria-label="Signal sources"><span>JVM logs</span><span>Docker</span><span>Kubernetes</span><span>Argo CD</span><span>Jenkins</span><span>CloudWatch</span><span>Prometheus</span><span>Lambda</span></div>
+        <div class="dust-hint"><b>wide band = 1</b> · thin band = 0 · scroll to let it settle</div>
+      </div>
+      <div class="dust-read glass">
+        <div class="dr-status"><span class="dr-dot"></span><b id="drStatus">STORM PASSED · DUST IN THE LIGHT</b></div>
+        <div class="dr-row"><span>BYTE 1</span><code id="drB1">········</code><b id="drV1">--</b></div>
+        <div class="dr-row"><span>BYTE 2</span><code id="drB2">········</code><b id="drV2">--</b></div>
+        <div class="dr-out" id="drOut"><b>STATUS: OK</b><span>HTTP 200 · failure detected, healed and alerted · no human in the loop</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ MISSION ============ -->
 <section class="has-art" id="mission" data-chapter="MISSION">
   <div class="wrap">
@@ -983,39 +1594,6 @@ body.light .theme-t:before{left:35px;
         <div class="act" style="--c:var(--cyan)"><div class="n">02 · BUILT</div><h4>A self-healing stack</h4><p>Chaos endpoints, a hardened image, 19 AWS resources in Terraform, and Jenkins with smoke-test gates.</p></div>
         <div class="act" style="--c:var(--amber)"><div class="n">03 · DISCOVERED</div><h4>A silent failure</h4><p>After an OOM the JVM stayed alive serving 500s while Docker said <code>healthy</code>. Fixed with <code>ExitOnOutOfMemoryError</code>.</p></div>
         <div class="act" style="--c:var(--green)"><div class="n">04 · VERIFIED</div><h4>Live on AWS</h4><p>OOM → JVM exits (code 3) → Docker restarts → ALARM e-mail in ~1 min → OK e-mail on recovery.</p></div>
-      </div>
-      <div class="repo-map">
-        <div class="deck-head"><span class="rec-dot" style="background:#FDBA74;box-shadow:0 0 10px #FDBA74"></span>REPOSITORY MAP · self-healing-java-app-aws<span class="deck-line"></span><a href="https://github.com/Gokul36115/self-healing-java-app-aws" target="_blank" rel="noopener">open on GitHub ↗</a></div>
-        <div class="tree"><div class="tr" style="--i:0"><span class="tp"></span><span class="tn dir">self-healing-java-app-aws/</span><span class="td"></span></div>
-<div class="tr" style="--i:1"><span class="tp">├── </span><span class="tn dir">app/</span><span class="td">Spring Boot application</span></div>
-<div class="tr" style="--i:2"><span class="tp">│   ├── </span><span class="tn dir">src/main/java/com/gokul/selfheal/</span><span class="td"></span></div>
-<div class="tr" style="--i:3"><span class="tp">│   │   ├── </span><span class="tn file">SelfhealAppApplication.java</span><span class="td">application entry point</span></div>
-<div class="tr" style="--i:4"><span class="tp">│   │   └── </span><span class="tn file">ChaosController.java</span><span class="td">chaos endpoints: /api/error, /slow, /memory, /crash</span></div>
-<div class="tr" style="--i:5"><span class="tp">│   ├── </span><span class="tn dir">src/main/resources/</span><span class="td"></span></div>
-<div class="tr" style="--i:6"><span class="tp">│   │   └── </span><span class="tn file">application.properties</span><span class="td">application name</span></div>
-<div class="tr" style="--i:7"><span class="tp">│   ├── </span><span class="tn file">src/test/java/...</span><span class="td">unit test run by the pipeline</span></div>
-<div class="tr" style="--i:8"><span class="tp">│   ├── </span><span class="tn file">Dockerfile</span><span class="td">multi-stage build, non-root user, HEALTHCHECK</span></div>
-<div class="tr" style="--i:9"><span class="tp">│   ├── </span><span class="tn file">pom.xml</span><span class="td">Maven build (Java 17, Spring Boot)</span></div>
-<div class="tr" style="--i:10"><span class="tp">│   └── </span><span class="tn dir">mvnw, .mvn/</span><span class="td">Maven wrapper (no local Maven install needed)</span></div>
-<div class="tr" style="--i:11"><span class="tp">├── </span><span class="tn dir">terraform/</span><span class="td">AWS infrastructure as code (19 resources)</span></div>
-<div class="tr" style="--i:12"><span class="tp">│   ├── </span><span class="tn file">providers.tf</span><span class="td">AWS provider, region, default tags</span></div>
-<div class="tr" style="--i:13"><span class="tp">│   ├── </span><span class="tn file">variables.tf</span><span class="td">inputs: CIDRs, instance type, image, my IP, alert e-mail</span></div>
-<div class="tr" style="--i:14"><span class="tp">│   ├── </span><span class="tn file">network.tf</span><span class="td">VPC, public subnet, internet gateway, route table</span></div>
-<div class="tr" style="--i:15"><span class="tp">│   ├── </span><span class="tn file">security.tf</span><span class="td">security group: HTTP 80 from one IP, no SSH</span></div>
-<div class="tr" style="--i:16"><span class="tp">│   ├── </span><span class="tn file">iam.tf</span><span class="td">EC2 role + instance profile (SSM, CloudWatch)</span></div>
-<div class="tr" style="--i:17"><span class="tp">│   ├── </span><span class="tn file">ec2.tf</span><span class="td">EC2 instance, IMDSv2, encrypted disk, user_data</span></div>
-<div class="tr" style="--i:18"><span class="tp">│   ├── </span><span class="tn file">logs.tf</span><span class="td">CloudWatch log group + OOM metric filter</span></div>
-<div class="tr" style="--i:19"><span class="tp">│   ├── </span><span class="tn file">alarms.tf</span><span class="td">OOM alarm + EC2 status-check auto-recover alarm</span></div>
-<div class="tr" style="--i:20"><span class="tp">│   ├── </span><span class="tn file">sns.tf</span><span class="td">SNS topic + e-mail subscription</span></div>
-<div class="tr" style="--i:21"><span class="tp">│   ├── </span><span class="tn file">outputs.tf</span><span class="td">instance_id, public_ip, app_url</span></div>
-<div class="tr" style="--i:22"><span class="tp">│   └── </span><span class="tn file">.terraform.lock.hcl</span><span class="td">pinned provider versions</span></div>
-<div class="tr" style="--i:23"><span class="tp">├── </span><span class="tn file">Jenkinsfile</span><span class="td">CI/CD: build → test → image → smoke test → push → deploy</span></div>
-<div class="tr" style="--i:24"><span class="tp">├── </span><span class="tn dir">docs/</span><span class="td"></span></div>
-<div class="tr" style="--i:25"><span class="tp">│   ├── </span><span class="tn file">architecture.png</span><span class="td">architecture diagram</span></div>
-<div class="tr" style="--i:26"><span class="tp">│   ├── </span><span class="tn file">tech-stack.png</span><span class="td">tech stack banner</span></div>
-<div class="tr" style="--i:27"><span class="tp">│   ├── </span><span class="tn file">errors.md</span><span class="td">8 real errors: symptom, root cause, fix</span></div>
-<div class="tr" style="--i:28"><span class="tp">│   └── </span><span class="tn dir">screenshots/</span><span class="td">evidence for each phase</span></div>
-<div class="tr" style="--i:29"><span class="tp">└── </span><span class="tn file">README.md</span><span class="td"></span></div></div>
       </div>
       <div class="deck-head"><span class="rec-dot"></span>MISSION CONTROL · LIVE EVIDENCE FROM THE AWS RUN<span class="deck-line"></span><span>6 FEEDS</span></div>
       <div class="deck">
@@ -1110,32 +1688,6 @@ body.light .theme-t:before{left:35px;
         <div class="act" style="--c:var(--cyan)"><div class="n">02 · BUILT</div><h4>GitOps + SRE stack</h4><p>Helm chart with probes, HPA and PDB, deployed by Argo CD from Git, plus <code>99.5%</code> SLO burn-rate alerts in Prometheus and Grafana.</p></div>
         <div class="act" style="--c:var(--amber)"><div class="n">03 · DISCOVERED</div><h4>Two real surprises</h4><p>Grafana crash-looped: <code>OOMKilled</code>, fixed with a Git commit. JVM restarts spiked CPU, so the HPA scaled out without real load.</p></div>
         <div class="act" style="--c:var(--green)"><div class="n">04 · VERIFIED</div><h4>Chaos-tested live</h4><p>Pods killed, JVM crashed, OOM forced: <code>4</code> automatic restarts, alerts fired, back to 2 healthy pods with zero manual steps.</p></div>
-      </div>
-      <div class="repo-map">
-        <div class="deck-head"><span class="rec-dot" style="background:#FDBA74;box-shadow:0 0 10px #FDBA74"></span>REPOSITORY MAP · k8s-selfheal-platform<span class="deck-line"></span><a href="https://github.com/Gokul36115/k8s-selfheal-platform" target="_blank" rel="noopener">open on GitHub ↗</a></div>
-        <div class="tree"><div class="tr" style="--i:0"><span class="tp"></span><span class="tn dir">k8s-selfheal-platform/</span><span class="td"></span></div>
-<div class="tr" style="--i:1"><span class="tp">├── </span><span class="tn dir">app/</span><span class="td">Spring Boot service (chaos endpoints + /api/cpu load endpoint)</span></div>
-<div class="tr" style="--i:2"><span class="tp">├── </span><span class="tn dir">charts/selfheal/</span><span class="td">Helm chart</span></div>
-<div class="tr" style="--i:3"><span class="tp">│   ├── </span><span class="tn dir">templates/</span><span class="td"></span></div>
-<div class="tr" style="--i:4"><span class="tp">│   │   ├── </span><span class="tn file">deployment.yaml</span><span class="td">probes, rolling update, security context</span></div>
-<div class="tr" style="--i:5"><span class="tp">│   │   ├── </span><span class="tn file">service.yaml</span><span class="td"></span></div>
-<div class="tr" style="--i:6"><span class="tp">│   │   ├── </span><span class="tn file">hpa.yaml</span><span class="td">CPU autoscaling 2→5</span></div>
-<div class="tr" style="--i:7"><span class="tp">│   │   ├── </span><span class="tn file">pdb.yaml</span><span class="td">keep ≥1 pod during disruptions</span></div>
-<div class="tr" style="--i:8"><span class="tp">│   │   ├── </span><span class="tn file">servicemonitor.yaml</span><span class="td">tells Prometheus what to scrape</span></div>
-<div class="tr" style="--i:9"><span class="tp">│   │   ├── </span><span class="tn file">prometheusrule.yaml</span><span class="td">SLIs, SLO burn-rate + self-healing alerts</span></div>
-<div class="tr" style="--i:10"><span class="tp">│   │   └── </span><span class="tn file">dashboard.yaml</span><span class="td">Grafana dashboard as a ConfigMap</span></div>
-<div class="tr" style="--i:11"><span class="tp">│   └── </span><span class="tn file">dashboards/selfheal.json</span><span class="td"></span></div>
-<div class="tr" style="--i:12"><span class="tp">├── </span><span class="tn dir">gitops/</span><span class="td">Argo CD applications + monitoring stack values</span></div>
-<div class="tr" style="--i:13"><span class="tp">├── </span><span class="tn dir">scripts/</span><span class="td"></span></div>
-<div class="tr" style="--i:14"><span class="tp">│   ├── </span><span class="tn file">bootstrap.sh</span><span class="td">one command: k3s → image → Argo CD → GitOps apps</span></div>
-<div class="tr" style="--i:15"><span class="tp">│   ├── </span><span class="tn file">chaos.sh</span><span class="td">break things on purpose and watch them heal</span></div>
-<div class="tr" style="--i:16"><span class="tp">│   ├── </span><span class="tn file">load.sh</span><span class="td">generate load to trigger autoscaling</span></div>
-<div class="tr" style="--i:17"><span class="tp">│   └── </span><span class="tn file">release.sh</span><span class="td">promote a CI-built image via Git (reviewed GitOps release)</span></div>
-<div class="tr" style="--i:18"><span class="tp">├── </span><span class="tn dir">docs/</span><span class="td"></span></div>
-<div class="tr" style="--i:19"><span class="tp">│   ├── </span><span class="tn file">architecture.png</span><span class="td"></span></div>
-<div class="tr" style="--i:20"><span class="tp">│   ├── </span><span class="tn file">errors.md</span><span class="td">real problems, root causes, fixes</span></div>
-<div class="tr" style="--i:21"><span class="tp">│   └── </span><span class="tn dir">screenshots/</span><span class="td">evidence from the live run</span></div>
-<div class="tr" style="--i:22"><span class="tp">└── </span><span class="tn file">.github/workflows/ci.yml</span><span class="td">test → lint → build → push → smoke test (read-only on the repo)</span></div></div>
       </div>
       <div class="deck-head"><span class="rec-dot"></span>MISSION CONTROL · LIVE EVIDENCE FROM THE CLUSTER<span class="deck-line"></span><span>6 FEEDS</span></div>
       <div class="deck">
@@ -1234,26 +1786,6 @@ body.light .theme-t:before{left:35px;
         <div class="act" style="--c:var(--cyan)"><div class="n">02 · BUILT</div><h4>Serverless watchdog + SSO</h4><p>A Python Lambda on an EventBridge schedule, Telegram alerts, the token in SSM, and a dashboard behind Auth0 SSO with an API Gateway <code>JWT authorizer</code>. 13 resources in Terraform.</p></div>
         <div class="act" style="--c:var(--amber)"><div class="n">03 · DISCOVERED</div><h4>Open doors in the identity provider</h4><p>Old test users and four social logins could reach the new app. Locked it down to one connection and one admin-created user, with sign-ups off.</p></div>
         <div class="act" style="--c:var(--green)"><div class="n">04 · VERIFIED</div><h4>Proved both paths</h4><p>Expired certificate caught from AWS and sent to my phone. No token → <code>401</code> before Lambda runs. SSO login → live results plus decoded JWT claims.</p></div>
-      </div>
-      <div class="repo-map">
-        <div class="deck-head"><span class="rec-dot" style="background:#FDBA74;box-shadow:0 0 10px #FDBA74"></span>REPOSITORY MAP · site-watchdog-serverless<span class="deck-line"></span><a href="https://github.com/Gokul36115/site-watchdog-serverless" target="_blank" rel="noopener">open on GitHub ↗</a></div>
-        <div class="tree"><div class="tr" style="--i:0"><span class="tp"></span><span class="tn dir">site-watchdog-serverless/</span><span class="td"></span></div>
-<div class="tr" style="--i:1"><span class="tp">├── </span><span class="tn file">watchdog.py</span><span class="td">HTTP + TLS checks, Telegram alert, one Lambda handler for schedule and API</span></div>
-<div class="tr" style="--i:2"><span class="tp">├── </span><span class="tn dir">terraform/</span><span class="td">AWS infrastructure as code (13 resources)</span></div>
-<div class="tr" style="--i:3"><span class="tp">│   ├── </span><span class="tn file">providers.tf</span><span class="td">AWS + archive providers, region, default tags</span></div>
-<div class="tr" style="--i:4"><span class="tp">│   ├── </span><span class="tn file">variables.tf</span><span class="td">sites, chat ID, SSM name, schedule, Auth0 settings</span></div>
-<div class="tr" style="--i:5"><span class="tp">│   ├── </span><span class="tn file">main.tf</span><span class="td">zip, log group, IAM role + policy, Lambda, EventBridge schedule</span></div>
-<div class="tr" style="--i:6"><span class="tp">│   ├── </span><span class="tn file">api.tf</span><span class="td">HTTP API, JWT authorizer, GET /status, throttled stage</span></div>
-<div class="tr" style="--i:7"><span class="tp">│   ├── </span><span class="tn file">outputs.tf</span><span class="td">function name, log group, status URL</span></div>
-<div class="tr" style="--i:8"><span class="tp">│   ├── </span><span class="tn file">terraform.tfvars.example</span><span class="td">template; real values stay git-ignored</span></div>
-<div class="tr" style="--i:9"><span class="tp">│   └── </span><span class="tn file">.terraform.lock.hcl</span><span class="td">pinned provider versions</span></div>
-<div class="tr" style="--i:10"><span class="tp">├── </span><span class="tn dir">docs/</span><span class="td"></span></div>
-<div class="tr" style="--i:11"><span class="tp">│   ├── </span><span class="tn file">index.html</span><span class="td">SSO dashboard on GitHub Pages · Auth0 SDK · PKCE</span></div>
-<div class="tr" style="--i:12"><span class="tp">│   ├── </span><span class="tn file">architecture.png</span><span class="td">architecture diagram</span></div>
-<div class="tr" style="--i:13"><span class="tp">│   ├── </span><span class="tn file">errors.md</span><span class="td">real problems, root causes, fixes</span></div>
-<div class="tr" style="--i:14"><span class="tp">│   └── </span><span class="tn dir">screenshots/</span><span class="td">evidence from the live run</span></div>
-<div class="tr" style="--i:15"><span class="tp">├── </span><span class="tn file">.gitignore</span><span class="td">venv, Terraform state, tfvars, build output</span></div>
-<div class="tr" style="--i:16"><span class="tp">└── </span><span class="tn file">README.md</span><span class="td"></span></div></div>
       </div>
       <div class="deck-head"><span class="rec-dot"></span>MISSION CONTROL · LIVE EVIDENCE FROM THE SERVERLESS RUN<span class="deck-line"></span><span>6 FEEDS</span></div>
       <div class="deck">
@@ -1386,13 +1918,13 @@ body.light .theme-t:before{left:35px;
     <h2>Verified, not just claimed.</h2>
     
     </div><div class="artifact" data-art="constellation"><canvas></canvas><div class="art-label"><span>CERTIFICATION STAR MAP</span><p>Each certification is a star; hover to trace the path</p><em>hover to engage</em></div></div></div><div class="creds">
-      <div class="cred glass tilt reveal" style="--c:var(--orange)"><div class="b"><img src="assets/icons/aws.png" alt=""></div><div class="code">AWS · FOUNDATIONAL</div><h4>AWS Certified Cloud Practitioner</h4><div class="dt">Issued Aug 2026</div>
+      <div class="cred glass tilt reveal" style="--c:var(--orange)"><canvas class="mini-cv" data-g="cred" data-a=".b" data-y="2026.58" data-c="255,153,0" aria-hidden="true"></canvas><div class="b"><img src="assets/icons/aws.png" alt=""></div><div class="code">AWS · FOUNDATIONAL</div><h4>AWS Certified Cloud Practitioner</h4><div class="dt">Issued Aug 2026</div>
         <a href="https://www.credly.com/badges/4b978eff-930c-437b-9c06-1a9a5053c8db" target="_blank" rel="noopener">Verify on Credly ↗</a></div>
-      <div class="cred glass tilt reveal d1" style="--c:var(--blue)"><div class="b"><img src="assets/icons/azure.png" alt=""></div><div class="code">AZ-104 · ASSOCIATE</div><h4>Azure Administrator Associate</h4><div class="dt">Issued Apr 2026</div>
+      <div class="cred glass tilt reveal d1" style="--c:var(--blue)"><canvas class="mini-cv" data-g="cred" data-a=".b" data-y="2026.25" data-c="96,165,250" aria-hidden="true"></canvas><div class="b"><img src="assets/icons/azure.png" alt=""></div><div class="code">AZ-104 · ASSOCIATE</div><h4>Azure Administrator Associate</h4><div class="dt">Issued Apr 2026</div>
         <a href="https://learn.microsoft.com/en-us/users/gokuln-7717/credentials/bf03700fb403d18c" target="_blank" rel="noopener">Verify on Microsoft ↗</a></div>
-      <div class="cred glass tilt reveal d2" style="--c:var(--violet)"><div class="b"><img src="assets/icons/azure.png" alt=""></div><div class="code">SC-900 · FUNDAMENTALS</div><h4>Security, Compliance &amp; Identity Fundamentals</h4><div class="dt">Issued Jan 2025</div>
+      <div class="cred glass tilt reveal d2" style="--c:var(--violet)"><canvas class="mini-cv" data-g="cred" data-a=".b" data-y="2025.0" data-c="167,139,250" aria-hidden="true"></canvas><div class="b"><img src="assets/icons/azure.png" alt=""></div><div class="code">SC-900 · FUNDAMENTALS</div><h4>Security, Compliance &amp; Identity Fundamentals</h4><div class="dt">Issued Jan 2025</div>
         <a href="https://learn.microsoft.com/en-us/users/gokuln-7717/credentials/28cae4550809a0ec" target="_blank" rel="noopener">Verify on Microsoft ↗</a></div>
-      <div class="cred glass tilt reveal d3" style="--c:var(--cyan)"><div class="b"><img src="assets/icons/azure.png" alt=""></div><div class="code">AZ-900 · FUNDAMENTALS</div><h4>Azure Fundamentals</h4><div class="dt">Issued Dec 2023</div>
+      <div class="cred glass tilt reveal d3" style="--c:var(--cyan)"><canvas class="mini-cv" data-g="cred" data-a=".b" data-y="2023.92" data-c="34,211,238" aria-hidden="true"></canvas><div class="b"><img src="assets/icons/azure.png" alt=""></div><div class="code">AZ-900 · FUNDAMENTALS</div><h4>Azure Fundamentals</h4><div class="dt">Issued Dec 2023</div>
         <a href="https://learn.microsoft.com/en-us/users/gokuln-7717/credentials/971b2d910f602c9f" target="_blank" rel="noopener">Verify on Microsoft ↗</a></div>
     </div>
   </div>
@@ -1407,11 +1939,11 @@ body.light .theme-t:before{left:35px;
     <p class="lead">Tools can be picked up in weeks. What's below took years of live production to build, and it comes with me on day one.</p>
     </div><div class="artifact" data-art="tesseract"><canvas></canvas><div class="art-label"><span>ON-CALL SOLAR SYSTEM</span><p>The Earth turns, the shift changes, production keeps running: morning, afternoon, night</p><em>hover to engage</em></div></div></div>
     <div class="aboard">
-      <div class="ab glass tilt reveal" style="--c:var(--amber)"><div class="ab-ic">🧭</div><h3>Production instincts</h3>
+      <div class="ab glass tilt reveal" style="--c:var(--amber)"><canvas class="mini-cv" data-g="incident" data-a=".ab-ic" aria-hidden="true"></canvas><div class="ab-ic">🧭</div><h3>Production instincts</h3>
         <p>I know what a real incident looks like: read the logs, find the blast radius, restore service, then fix the root cause. That part needs no onboarding.</p></div>
-      <div class="ab glass tilt reveal d1" style="--c:var(--cyan)"><div class="ab-ic">🛠️</div><h3>I go deep, then I build</h3>
+      <div class="ab glass tilt reveal d1" style="--c:var(--cyan)"><canvas class="mini-cv" data-g="build" data-a=".ab-ic" aria-hidden="true"></canvas><div class="ab-ic">🛠️</div><h3>I go deep, then I build</h3>
         <p>I didn't stop at certificates. I built, broke and fixed three systems: a self-healing AWS stack, a Kubernetes platform and a serverless monitor behind SSO, and documented every error on the way.</p></div>
-      <div class="ab glass tilt reveal d2" style="--c:var(--green)"><div class="ab-ic">📈</div><h3>Better than I found it</h3>
+      <div class="ab glass tilt reveal d2" style="--c:var(--green)"><canvas class="mini-cv" data-g="quiet" data-a=".ab-ic" aria-hidden="true"></canvas><div class="ab-ic">📈</div><h3>Better than I found it</h3>
         <p>Runbooks, alerts, automation. The systems I touch become more observable, more repeatable and harder to break, and the next on-call engineer feels it.</p></div>
     </div>
     <div class="promise reveal">
@@ -1450,9 +1982,9 @@ body.light .theme-t:before{left:35px;
       <h2 class="dock-h"><span class="dl">READY TO DOCK</span><span class="dl">WITH <em>YOUR TEAM</em>.</span></h2>
       <div class="dock-bottom">
         <div class="beacons">
-          <button class="beacon" id="copyMail" type="button" title="Copy e-mail"><i><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18v12H3z"/><path d="m3 7 9 6 9-6"/></svg></i><span class="mail-t">gokul36115@gmail.com</span><em>click to copy</em></button>
-          <a class="beacon" href="https://www.linkedin.com/in/gokul36115" target="_blank" rel="noopener"><i><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h4v11H4z"/><circle cx="6" cy="5" r="2"/><path d="M11 9h4v1.6a4 4 0 0 1 7 2.4V20h-4v-6a2 2 0 0 0-4 0v6h-3z"/></svg></i><span>LinkedIn</span><em>/in/gokul36115</em></a>
-          <a class="beacon" href="https://github.com/Gokul36115" target="_blank" rel="noopener"><i><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5a3 3 0 0 0-.9-2.4c2.8-.3 5.9-1.4 5.9-6.3a5 5 0 0 0-1.3-3.4 4.6 4.6 0 0 0-.1-3.4s-1.1-.3-3.5 1.3a12 12 0 0 0-6.2 0C6.5 2.7 5.4 3 5.4 3a4.6 4.6 0 0 0-.1 3.4A5 5 0 0 0 4 9.8c0 4.9 3.1 6 5.9 6.3a3 3 0 0 0-.9 2.4V21"/></svg></i><span>GitHub</span><em>/Gokul36115</em></a>
+          <button class="beacon" id="copyMail" type="button" title="Copy e-mail"><i><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18v12H3z"></path><path d="m3 7 9 6 9-6"></path></svg></i><span class="mail-t">gokul36115@gmail.com</span><em>click to copy</em></button>
+          <a class="beacon" href="https://www.linkedin.com/in/gokul36115" target="_blank" rel="noopener"><i><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h4v11H4z"></path><circle cx="6" cy="5" r="2"></circle><path d="M11 9h4v1.6a4 4 0 0 1 7 2.4V20h-4v-6a2 2 0 0 0-4 0v6h-3z"></path></svg></i><span>LinkedIn</span><em>/in/gokul36115</em></a>
+          <a class="beacon" href="https://github.com/Gokul36115" target="_blank" rel="noopener"><i><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5a3 3 0 0 0-.9-2.4c2.8-.3 5.9-1.4 5.9-6.3a5 5 0 0 0-1.3-3.4 4.6 4.6 0 0 0-.1-3.4s-1.1-.3-3.5 1.3a12 12 0 0 0-6.2 0C6.5 2.7 5.4 3 5.4 3a4.6 4.6 0 0 0-.1 3.4A5 5 0 0 0 4 9.8c0 4.9 3.1 6 5.9 6.3a3 3 0 0 0-.9 2.4V21"></path></svg></i><span>GitHub</span><em>/Gokul36115</em></a>
         </div>
         <div class="dock-legal">© <span id="yr">2026</span> Gokul N · Chennai, India · <a class="totop" href="#launch">back to top ↑</a></div>
       </div>
@@ -2550,6 +3082,230 @@ scene('replay3',D=>{const R=rng(9),shield=[],rings=[[],[],[]],vortex=[],core=sph
  document.querySelectorAll('.repo-map').forEach(m=>io.observe(m))})();
 
 
+/* =========================================================
+   SIGNAL IN THE DUST (Interstellar interlude)
+   After the storm, dust hangs in the sun shafts. Scrolling lets "gravity"
+   gather it into curtains, then rain it onto the floor as wide (1) and
+   thin (0) bands. The 16 bands are ASCII: 01001111 01001011 = "OK", every system healthy.
+   ========================================================= */
+function dustScene(N){
+  let s=21;const R=()=>{s=(s*16807)%2147483647;return s/2147483647};
+  const gs=()=>(R()+R()+R()-1.5)/1.5;
+  const BITS=[0,1,0,0,1,1,1,1, 0,1,0,0,1,0,1,1];            // 01001111 = 'O' · 01001011 = 'K'
+  const wt=BITS.map(b=>b?4.6:.8),ws=wt.reduce((a,b)=>a+b,0),P=[];
+  for(let i=0;i<N;i++){const r=R(),kind=r<.62?0:r<.78?1:2;let si=-1;     // 0 band, 1 floor dust, 2 stays airborne
+    if(kind===0){let q=R()*ws;si=0;while(si<15&&q>wt[si]){q-=wt[si];si++}}
+    P.push({kind,si,off:(R()+R())/2-.5,zt:R(),fu:R()*2-1,fz:R(),u:R()*2-1,y:.04+Math.pow(R(),.75)*1.9,z:R(),ph:R()*6.283,sp:.5+R(),d:R(),b:.35+.65*R()})}
+  return{P,BITS}}
+function dustFrame(g,W,H,t,p,S,mx,my,avoid){
+  const{P,BITS}=S,mob=W<760,cl=x=>x<0?0:x>1?1:x,ease=x=>x*x*(3-2*x),seg=(a,b)=>cl((p-a)/(b-a));
+  const f=H*(mob?.95:.8),vx=W*.5,vy=H*(mob?.46:.42),camZ=p*.3,D=Math.max(W,H*1.2);
+  const zn=f/(H*(mob?.74:.97)-vy),zf=f/(H*.075),zs0=zn*1.22,zs1=zs0*(mob?2.1:2.5);
+  const span=W*(mob?.47:.42)*zs0/f,pitch=2*span/17,cx=i=>-span+(i+(i>7?1:0)+.5)*pitch,wd=i=>BITS[i]?pitch*.72:pitch*.12;
+  const pr=(x,y,z)=>{const zz=Math.max(.3,z-camZ),k=f/zz;return[vx+x*k,vy+(1-y)*k,zz]};
+  const pS=ease(seg(.16,.66)),q=seg(.7,.88),dec=Math.floor(q*16+1e-6),storm=1+.9*(1-seg(0,.18))*(1-pS),tt=t*.001;
+  g.globalCompositeOperation='source-over';g.globalAlpha=1;g.clearRect(0,0,W,H);
+  // warm room haze + floor tint
+  let gr=g.createRadialGradient(W*.6,H*.62,0,W*.6,H*.62,D*.8);gr.addColorStop(0,'rgba(150,100,50,.16)');gr.addColorStop(1,'rgba(150,100,50,0)');g.fillStyle=gr;g.fillRect(0,0,W,H);
+  const hy=vy+f/zf;gr=g.createLinearGradient(0,hy,0,H);gr.addColorStop(0,'rgba(120,80,40,0)');gr.addColorStop(1,'rgba(120,80,40,.15)');g.fillStyle=gr;g.fillRect(0,hy,W,H-hy);
+  // window light + soft sun shafts (three stacked layers = soft edges)
+  const O=[W*(mob?.98:.9),-H*.08];g.globalCompositeOperation='lighter';
+  gr=g.createRadialGradient(O[0],O[1],0,O[0],O[1],D*.38);gr.addColorStop(0,'rgba(255,220,170,.22)');gr.addColorStop(1,'rgba(255,220,170,0)');g.fillStyle=gr;g.fillRect(0,0,W,H);
+  const SH=[[.12,1.0,.014,.1,.07],[.36,1.05,.011,.075,.055],[.6,1.0,.008,.055,.045],[.8,.98,.006,.04,.035]];
+  const shafts=SH.map(([tx,ty,a0,a1,al],i)=>{const T=[W*tx,H*ty],dx=T[0]-O[0],dy=T[1]-O[1],L=Math.hypot(dx,dy),ux=dx/L,uy=dy/L,nx=-uy,ny=ux,w0=a0*D,w1=a1*D,b=al*(.8+.2*Math.sin(t*.0006+i*1.7));
+    for(const k of[1,.62,.3]){const lg=g.createLinearGradient(O[0],O[1],T[0],T[1]);lg.addColorStop(0,`rgba(255,222,165,${b*.55})`);lg.addColorStop(.6,`rgba(255,204,140,${b*.3})`);lg.addColorStop(1,`rgba(255,190,120,${b*.1})`);
+      g.fillStyle=lg;g.beginPath();g.moveTo(O[0]+nx*w0*k,O[1]+ny*w0*k);g.lineTo(T[0]+nx*w1*k,T[1]+ny*w1*k);g.lineTo(T[0]-nx*w1*k,T[1]-ny*w1*k);g.lineTo(O[0]-nx*w0*k,O[1]-ny*w0*k);g.closePath();g.fill()}
+    return{ux,uy,nx,ny,L,w0,w1}});
+  // particle buckets: 3 colours x 6 alpha levels x 3 sizes
+  const COL=['232,184,108','255,222,165','255,246,228'],SZ=[1.05,1.55,2.1],B={},STK=[[],[],[],[],[],[]];
+  const put=(x,y,a,c,s)=>{if(a<.02||x<-3||y<-3||x>W+3||y>H+3)return;const ai=Math.min(5,(a*6)|0),k=c*18+ai*3+s;(B[k]||(B[k]=[])).push(x,y)};
+  // floorboards: faint dotted seams running into the room
+  const bw=span*2/7;for(let k=-14;k<=14;k++){const x=k*bw;for(let z=zn;z<zf;z+=z*.035){const e=pr(x,0,z);put(e[0],e[1],.13,0,0)}}
+  const za=zn*.95,zb=zf*.8;
+  const stp=S.step||1;for(let pi=0;pi<P.length;pi+=stp){const o=P[pi],z0=za+o.z*(zb-za),w=tt*o.sp;
+    const az=z0+Math.sin(w*.21+o.ph)*.22*storm,ay=o.y+(Math.sin(w*.37+o.ph*1.3)*.08+Math.sin(w*.13+o.ph)*.05)*storm;
+    const ax=(o.u+Math.sin(w*.17+o.ph*2)*.04*storm+Math.sin(w*.05+o.ph)*.03)*W*.56*z0/f;
+    let x=ax,y=ay,z=az,k=0,v=0,tz=0;
+    if(o.kind<2){let tx;if(o.kind===0){tz=zs0+o.zt*(zs1-zs0);tx=cx(o.si)+o.off*wd(o.si)+Math.sin(tz*23+o.si)*pitch*.03}else{tz=zn+o.fz*(zf*.9-zn);tx=o.fu*W*.56*tz/f}
+      k=cl(pS*1.5-o.d*.5);if(k>0){const h=ease(cl(k*1.8));v=cl((k-.22)/.78);x=ax+(tx-ax)*h;z=az+(tz-az)*h;y=ay*(1-v*v)}}
+    const e=pr(x,y,z);let sx=e[0],sy=e[1];
+    if(k<1&&mx>-900){const dx=sx-mx,dy=sy-my,d=Math.hypot(dx,dy);if(d<90&&d>.01){const m=(1-d/90)*16*(1-k);sx+=dx/d*m;sy+=dy/d*m}}
+    let boost=0;for(const s of shafts){const rx=sx-O[0],ry=sy-O[1],al=rx*s.ux+ry*s.uy;if(al<=0)continue;const pd=rx*s.nx+ry*s.ny,hw=s.w0+(s.w1-s.w0)*Math.min(1.2,al/s.L);boost+=Math.exp(-(pd*pd)/(hw*hw)*1.6)}
+    const fog=Math.max(.22,Math.min(1.15,1.3-e[2]*.085)),tw=.8+.2*Math.sin(t*.003*o.sp+o.ph*3),landed=k>=1;
+    let a,c;
+    if(!landed){a=o.b*fog*tw*(.3+boost*1.3);c=boost>.8?2:boost>.3?1:0}
+    else if(o.kind===0){a=o.b*fog*(.58+boost*.35);c=boost>.6?1:0;
+      if(o.si<dec){a=Math.min(1,a*1.3+.18)*(q>=1?.85+.15*Math.sin(tz*3-t*.004):1);c=2}else if(o.si===dec&&q>0&&q<1){a=Math.min(1,a+.35);c=1}}
+    else{a=o.b*fog*(.2+boost*.25);c=0}
+    const pz=f/e[2],s=pz>380?2:pz>210?1:0;put(sx,sy,Math.min(1,a),c,s);
+    if(v>0&&v<1){const len=Math.min(16,2*v*ay*pz*.08);if(len>1.2)STK[Math.min(5,(a*6)|0)].push(sx,sy,len)}}
+  for(const key in B){const kk=+key,c=(kk/18)|0,ai=((kk%18)/3)|0,s=kk%3,b=B[key],sz=SZ[s],h=sz/2;
+    g.fillStyle=`rgba(${COL[c]},${(ai+1)/6})`;g.beginPath();for(let i=0;i<b.length;i+=2)g.rect(b[i]-h,b[i+1]-h,sz,sz);g.fill()}
+  STK.forEach((b,ai)=>{if(!b.length)return;g.fillStyle=`rgba(255,222,165,${(ai+1)/6*.55})`;g.beginPath();for(let i=0;i<b.length;i+=3)g.rect(b[i]-.5,b[i+1]-b[i+2],1,b[i+2]);g.fill()});
+  // scan line on the band being read
+  if(q>0&&q<1&&dec<16){const a=pr(cx(dec),0,zs0),b=pr(cx(dec),0,zs1);g.strokeStyle='rgba(253,186,116,.55)';g.lineWidth=1.5;g.beginPath();g.moveTo(a[0],a[1]);g.lineTo(b[0],b[1]);g.stroke()}
+  g.globalCompositeOperation='source-over';
+  // bit labels at the far end of each band
+  const la=seg(.64,.7);
+  if(la>0){// same top row as before (far end of the bands); only nudged down when it would touch the text
+    const zF=zs1+(zs1-zs0)*.06,fs=Math.max(8,Math.min(15,pitch*f/pr(0,0,zF)[2]*.62)),yF=pr(0,0,zF)[1]-4,yMax=pr(0,0,zs0*1.15)[1];
+    const rowAt=y=>{const z=y>yF?f/Math.max(4,y-vy)+camZ:zF,xs=[];for(let i=0;i<16;i++)xs.push(pr(cx(i),0,z)[0]);return{xs,y,r:[xs[0]-fs,y-fs-2,xs[15]+fs,y+3]}};
+    const hits=r=>(avoid||[]).filter(A=>r[0]<A[2]&&r[2]>A[0]&&r[1]<A[3]&&r[3]>A[1]);
+    let L=rowAt(yF);for(let k=0;k<3;k++){const hs=hits(L.r);if(!hs.length)break;const ny=Math.max(...hs.map(A=>A[3]))+fs+6;if(ny>yMax){L=rowAt(yF);break}L=rowAt(ny)}
+    g.font=`700 ${fs}px "JetBrains Mono",ui-monospace,monospace`;g.textAlign='center';g.textBaseline='bottom';
+    for(let i=0;i<16;i++){const done=i<dec,cur=i===dec&&q>0&&q<1;
+      g.globalAlpha=la*(done?1:cur?.95:.3);g.fillStyle=done?(BITS[i]?'#FDE68A':'#7DD3FC'):cur?'#FDBA74':'#94A3B8';
+      g.shadowColor=done?(BITS[i]?'rgba(253,186,116,.9)':'rgba(125,211,252,.8)'):'rgba(0,0,0,.9)';g.shadowBlur=done?10:4;
+      g.fillText(done?String(BITS[i]):cur?String((t/90|0)%2):'\u00b7',L.xs[i],L.y)}
+    g.shadowBlur=0;g.globalAlpha=1}
+  return{dec,q,pS}}
+
+(()=>{const sec=document.getElementById('signal');if(!sec)return;
+ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,stage=sec.querySelector('.dust-stage'),cv=sec.querySelector('.dust-cv'),g=cv.getContext('2d');
+ const DPR=Math.min(devicePixelRatio||1,2);let W=0,H=0,vis=false,smP=0,mx=-999,my=-999,last='',cost=0;
+ const S=dustScene(innerWidth<760?1800:4200),BITS=S.BITS;
+ const size=()=>{const r=cv.getBoundingClientRect();W=r.width;H=r.height;cv.width=Math.round(W*DPR);cv.height=Math.round(H*DPR);g.setTransform(DPR,0,0,DPR,0,0)};size();addEventListener('resize',size);
+ new IntersectionObserver(es=>es.forEach(e=>{vis=e.isIntersecting;document.body.classList.toggle('dust-on',vis)})).observe(sec);
+ stage.addEventListener('mousemove',e=>{const r=cv.getBoundingClientRect();mx=e.clientX-r.left;my=e.clientY-r.top},{passive:true});
+ stage.addEventListener('mouseleave',()=>{mx=my=-999});
+ const box=sec.querySelector('.dust-read'),$id=i=>document.getElementById(i),st=$id('drStatus'),b1=$id('drB1'),b2=$id('drB2'),v1=$id('drV1'),v2=$id('drV2'),out=$id('drOut'),copyEl=sec.querySelector('.dust-copy');let AV=[],avN=0;const calcAv=()=>{const c=cv.getBoundingClientRect();AV=[copyEl,box].filter(Boolean).map(e=>{const r=e.getBoundingClientRect();return[r.left-c.left-8,r.top-c.top-8,r.right-c.left+8,r.bottom-c.top+8]}).filter(r=>r[2]>r[0])};addEventListener('resize',()=>avN=0);const chips=[...sec.querySelectorAll('.dust-src span')],src=sec.querySelector('.dust-src');
+ const bits=(a,n)=>a.slice(0,n).join('')+'\u00b7'.repeat(8-n);
+ function ui(p,r){const d=r.dec,s=p<.16?'STORM PASSED \u00b7 DUST IN THE LIGHT':p<.66?'GRAVITY ANOMALY \u00b7 DUST ALIGNING':d<1&&r.q<=0?'PATTERN LOCKED \u00b7 16 BANDS':d<16?`DECODING BINARY \u00b7 BIT ${Math.min(16,d+1)}/16`:'DECODED \u2713 \u00b7 SIGNAL RECEIVED';
+   const nc=p<.16?0:Math.min(chips.length,1+Math.floor((p-.16)/.0625)),k=s+'|'+d+'|'+nc;if(k===last)return;last=k;chips.forEach((c,i)=>c.classList.toggle('on',i<nc));src.classList.toggle('done',d>=16);st.textContent=s;b1.textContent=bits(BITS.slice(0,8),Math.min(8,d));b2.textContent=bits(BITS.slice(8),Math.max(0,d-8));
+   v1.textContent=d>=8?"= 'O'":'--';v2.textContent=d>=16?"= 'K'":'--';box.classList.toggle('done',d>=16);out.classList.toggle('on',d>=16)}
+ (function loop(t){requestAnimationFrame(loop);if(!vis||!W)return;
+   const rc=sec.getBoundingClientRect(),raw=Math.max(0,Math.min(1,-rc.top/Math.max(1,rc.height-innerHeight)));smP+=(raw-smP)*(reduce?1:.08);
+   const t0=performance.now(),r=(avN++%30?0:calcAv(),dustFrame(g,W,H,reduce?0:t,smP,S,mx,my,AV));cost+=(performance.now()-t0-cost)*.05;if(cost>14)S.step=2;ui(smP,r)})(0);
+})();
+
+
+/* ---------- stat cards: live readouts (heartbeat · server estate · 24h shift clock · cert stars) ---------- */
+(()=>{const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,DPR=Math.min(devicePixelRatio||1,2);
+ const items=[...document.querySelectorAll('.stat-cv')].map(cv=>{const card=cv.parentElement,o={cv,g:cv.getContext('2d'),card,bar:card.querySelector('.bar'),kind:cv.dataset.g,vis:false,W:0,H:0,born:0,inc:null};
+   o.size=()=>{o.W=card.offsetWidth;o.H=card.offsetHeight;cv.width=Math.round(o.W*DPR);cv.height=Math.round(o.H*DPR);o.g.setTransform(DPR,0,0,DPR,0,0)};o.size();
+   new IntersectionObserver(es=>es.forEach(e=>{o.vis=e.isIntersecting;if(o.vis&&!o.born)o.born=performance.now()})).observe(card);return o});
+ if(!items.length)return;addEventListener('resize',()=>items.forEach(o=>o.size()));addEventListener('load',()=>items.forEach(o=>o.size()));
+ const dot=(g,x,y,s,c,a)=>{g.fillStyle=`rgba(${c},${a})`;g.fillRect(x-s/2,y-s/2,s,s)};
+ const glw=(g,x,y,r,c,a)=>{const gr=g.createRadialGradient(x,y,0,x,y,r);gr.addColorStop(0,`rgba(${c},${a})`);gr.addColorStop(1,`rgba(${c},0)`);g.fillStyle=gr;g.fillRect(x-r,y-r,r*2,r*2)};
+ const ekg=u=>{u=((u%1)+1)%1;if(u<.08)return 0;if(u<.16)return Math.sin((u-.08)/.08*Math.PI)*.18;if(u<.22)return 0;if(u<.25)return-(u-.22)/.03*.25;if(u<.29)return-.25+(u-.25)/.04*1.25;
+   if(u<.33)return 1-(u-.29)/.04*1.45;if(u<.36)return-.45+(u-.33)/.03*.45;if(u<.5)return 0;if(u<.64)return Math.sin((u-.5)/.14*Math.PI)*.3;return 0};
+ const DRAW={
+  pulse(o,g,x0,x1,y,t){const c='34,211,238',L=x1-x0,C=L+30,per=Math.max(60,L/1.6),head=(t*.06)%C;
+    for(let x=x0;x<=x1;x+=1.2){const age=((head-(x-x0))%C+C)%C;if(age>C-12)continue;const a=1-age/C*.9;dot(g,x,y-ekg((x-x0)/per)*11,1.4,c,.12+.78*a)}
+    if(head<=L){const hx=x0+head,hy=y-ekg(head/per)*11;glw(g,hx,hy,8,c,.8);dot(g,hx,hy,2.4,'236,254,255',1)}},
+  servers(o,g,x0,x1,y,t){const c='52,211,153',cols=Math.max(8,Math.floor((x1-x0)/6)),sx=(x1-x0)/(cols-1),scan=((t*.00025)%1.25)*cols;
+    if(!o.inc||t-o.inc.t>2600||t<o.inc.t)o.inc={t,i:Math.floor(Math.random()*cols),j:Math.floor(Math.random()*3)};const e=(t-o.inc.t)/2600;
+    for(let i=0;i<cols;i++)for(let j=0;j<3;j++){const x=x0+i*sx,yy=y+(j-1)*7,n=Math.max(0,1-Math.abs(i-scan)/2.5);let col=c,a=.26+.6*n,s=1.6+n;
+      if(i===o.inc.i&&j===o.inc.j){if(e<.45){col='248,113,113';a=.6+.4*Math.sin(t*.03);s=2.4;glw(g,x,yy,7,col,.5)}else if(e<.7){a=1;s=2.6;glw(g,x,yy,8,c,.6*(1-(e-.45)/.25))}}
+      dot(g,x,yy,s,col,a)}},
+  oncall(o,g,x0,x1,y,t){const L=x1-x0,sg=L/24,d=new Date(),hr=d.getHours()+d.getMinutes()/60+d.getSeconds()/3600,col=h=>h>=6&&h<14?'253,186,116':h>=14&&h<22?'125,211,252':'167,139,250';
+    for(let h=0;h<24;h++){const xs=x0+h*sg,cur=Math.floor(hr)===h;for(let k=0;k<sg-2;k+=1.6)dot(g,xs+1+k,y,cur?1.8:1.3,col(h),cur?.95:.38)}
+    for(const h of[0,6,12,18,24])for(let k=1;k<=3;k++)dot(g,x0+h*sg,y+3+k*1.6,1.1,'148,163,184',.55);
+    const hx=x0+hr*sg,cc=col(Math.floor(hr)),pl=.6+.4*Math.sin(t*.005);glw(g,hx,y,9,cc,.7*pl);dot(g,hx,y,2.6,'255,255,255',1);
+    const q=(t%4000)/1400;if(q<1){g.strokeStyle=`rgba(${cc},${(1-q)*.7})`;g.lineWidth=1;g.beginPath();g.arc(hx,y,3+q*12,0,6.283);g.stroke()}},
+  certs(o,g,x0,x1,y,t){const L=x1-x0,S=[[.06,4,'125,211,252'],[.37,-6,'167,139,250'],[.66,5,'96,165,250'],[.94,-7,'253,186,116']].map(([f,dy,c])=>[x0+L*f,y+dy,c]);
+    const dr=reduce?3:Math.min(1,Math.max(0,(t-o.born-300)/1800))*3;
+    for(let i=0;i<3;i++){const f=Math.min(1,Math.max(0,dr-i));if(f<=0)break;const a=S[i],b=S[i+1],st=Math.hypot(b[0]-a[0],b[1]-a[1])/2.4;
+      for(let k=0;k<st*f;k++){const u=k/st;dot(g,a[0]+(b[0]-a[0])*u,a[1]+(b[1]-a[1])*u,1.2,'255,226,170',.3+.25*Math.sin(u*18-t*.008))}
+      if(f>=1){const u=((t*.0005)+i*.33)%1;glw(g,a[0]+(b[0]-a[0])*u,a[1]+(b[1]-a[1])*u,5,'255,240,210',.8)}}
+    S.forEach(([x,yy,c],i)=>{const lit=dr>=i-.02,p=.75+.25*Math.sin(t*.004+i*1.7),R=lit?3.2:2;glw(g,x,yy,R*3.2,c,(lit?.55:.18)*p);
+      g.strokeStyle=`rgba(${c},${(lit?.75:.25)*p})`;g.lineWidth=1;g.beginPath();g.moveTo(x-R*2.4,yy);g.lineTo(x+R*2.4,yy);g.moveTo(x,yy-R*2.4);g.lineTo(x,yy+R*2.4);g.stroke();dot(g,x,yy,lit?2.4:1.6,'255,255,255',lit?1:.5)})}};
+ (function loop(t){requestAnimationFrame(loop);for(const o of items){if(!o.vis||!o.W||!o.bar)continue;const g=o.g;g.clearRect(0,0,o.W,o.H);
+   const x0=o.bar.offsetLeft+o.bar.offsetWidth+16,x1=o.W-26,y=o.bar.offsetTop+o.bar.offsetHeight/2;if(x1-x0<40)continue;
+   g.globalCompositeOperation='lighter';DRAW[o.kind](o,g,x0,x1,y,reduce?4000:t);g.globalCompositeOperation='source-over'}})(0);
+})();
+
+/* ---------- journey spine: dust motes stream down the flight log, a comet marks how far you've read ---------- */
+(()=>{const j=document.getElementById('journeyEl'),cv=j&&j.querySelector('.spine-cv'),fill=document.getElementById('spineFill');if(!cv||!fill)return;
+ const g=cv.getContext('2d'),DPR=Math.min(devicePixelRatio||1,2),reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;let W=0,H=0,vis=false,last=0;
+ const size=()=>{W=cv.offsetWidth;H=cv.offsetHeight;cv.width=Math.round(W*DPR);cv.height=Math.round(H*DPR);g.setTransform(DPR,0,0,DPR,0,0)};size();addEventListener('resize',size);addEventListener('load',size);
+ new IntersectionObserver(es=>es.forEach(e=>vis=e.isIntersecting)).observe(j);
+ const M=Array.from({length:130},()=>({u:Math.random(),s:.00003+Math.random()*.00009,o:Math.random()-.5,ph:Math.random()*6.28,z:Math.random()}));
+ const grad=u=>{const A=u<.5?[34,211,238]:[167,139,250],B=u<.5?[167,139,250]:[244,114,182],k=u<.5?u*2:(u-.5)*2;return A.map((v,i)=>v+(B[i]-v)*k|0).join(',')};
+ (function loop(t){requestAnimationFrame(loop);const dt=Math.min(50,t-last);last=t;if(!vis||!H)return;
+  if(H!==cv.offsetHeight)size();g.clearRect(0,0,W,H);const X=W/2,fh=fill.offsetHeight;g.globalCompositeOperation='lighter';
+  for(const m of M){if(!reduce)m.u=(m.u+m.s*dt)%1;const y=m.u*H,lit=y<fh,x=X+m.o*(4+5*m.z)*Math.sin(t*.0012+m.ph+m.u*30),s=lit?1.2+m.z:1;
+    g.fillStyle=lit?`rgba(${grad(y/H)},${.35+.55*m.z})`:`rgba(148,163,184,${.07+.12*m.z})`;g.fillRect(x-s/2,y-s/2,s,s)}
+  if(fh>4){const c=grad(Math.min(1,fh/H));for(let k=0;k<30;k++){const y=fh-k*3;if(y<0)break;const w=(1-k/30)*3;g.fillStyle=`rgba(255,236,200,${(1-k/30)*.5})`;g.fillRect(X-w/2+Math.sin(t*.01+k)*.6,y,w,2)}
+   const gr=g.createRadialGradient(X,fh,0,X,fh,14);gr.addColorStop(0,'rgba(255,255,255,.95)');gr.addColorStop(.3,`rgba(${c},.75)`);gr.addColorStop(1,`rgba(${c},0)`);g.fillStyle=gr;g.fillRect(X-14,fh-14,28,28)}
+  g.globalCompositeOperation='source-over'})(0);
+})();
+
+
+/* ---------- card readouts: small live graphics beside card icons ---------- */
+(()=>{const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,DPR=Math.min(devicePixelRatio||1,2);
+ const R='248,113,113',G='110,231,183',C='34,211,238',A='253,186,116',SL='148,163,184',WH='236,242,252';
+ const items=[...document.querySelectorAll('.mini-cv')].map(cv=>({cv,card:cv.parentElement,an:cv.parentElement.querySelector(cv.dataset.a)})).filter(o=>o.an).map(o=>{
+   Object.assign(o,{g:o.cv.getContext('2d'),kind:o.cv.dataset.g,c:o.cv.dataset.c||A,yr:+o.cv.dataset.y||0,vis:false,W:0,H:0,ax:0,ay:0,born:0});
+   o.size=()=>{o.W=o.card.offsetWidth;o.H=o.card.offsetHeight;o.cv.width=Math.round(o.W*DPR);o.cv.height=Math.round(o.H*DPR);o.g.setTransform(DPR,0,0,DPR,0,0);
+     let w=o.an.offsetWidth;if(o.cv.dataset.text){try{const r=document.createRange();r.selectNodeContents(o.an);w=r.getBoundingClientRect().width||w}catch(e){}}
+     o.ax=o.an.offsetLeft+w;o.ay=o.an.offsetTop+o.an.offsetHeight/2};o.size();
+   new IntersectionObserver(es=>es.forEach(e=>{o.vis=e.isIntersecting;if(o.vis&&!o.born)o.born=performance.now()})).observe(o.card);return o});
+ if(!items.length)return;const all=()=>items.forEach(o=>o.size());addEventListener('resize',all);addEventListener('load',all);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(all);
+ const dot=(g,x,y,s,c,a)=>{g.fillStyle=`rgba(${c},${a})`;g.fillRect(x-s/2,y-s/2,s,s)};
+ const glw=(g,x,y,r,c,a)=>{const gr=g.createRadialGradient(x,y,0,x,y,r);gr.addColorStop(0,`rgba(${c},${a})`);gr.addColorStop(1,`rgba(${c},0)`);g.fillStyle=gr;g.fillRect(x-r,y-r,r*2,r*2)};
+ const txt=(g,s,x,y,c,al='left',sz=9)=>{g.globalCompositeOperation='source-over';g.font=`600 ${sz}px "JetBrains Mono",ui-monospace,monospace`;g.textAlign=al;g.textBaseline='middle';g.fillStyle=`rgb(${c})`;g.fillText(s,x,y);g.globalCompositeOperation='lighter'};
+ const line=(g,x0,x1,y,c=SL,a=.3,st=4)=>{for(let x=x0;x<=x1;x+=st)dot(g,x,y,1,c,a)};
+ const ring=(g,x,y,r,c,a)=>{g.strokeStyle=`rgba(${c},${a})`;g.lineWidth=1;g.beginPath();g.arc(x,y,r,0,6.283);g.stroke()};
+ const hash=k=>{const v=Math.sin(k*12.9898)*43758.5453;return v-Math.floor(v)};
+ const DRAW={
+  /* 01 · healthy != working: packets flow; when 500s reach the user, the status goes loud */
+  health(o,g,x0,x1,y,t){const L=x1-x0-74,sp=.00022,cyc=5200,red=te=>{const q=(((te%cyc)+cyc)%cyc)/cyc;return q>.4&&q<.72};line(g,x0,x0+L,y);
+    for(let k=0;k<8;k++){const u=((t*sp)+k/8)%1,b=red(t-u/sp),x=x0+u*L;glw(g,x,y,5,b?R:G,.45);dot(g,x,y,2.2,b?R:G,.95)}
+    const bad=red(t-1/sp),px=x0+L+9;glw(g,px,y,bad?9:6,bad?R:G,.8);dot(g,px,y,3,bad?R:G,1);if(bad){const q=(t%700)/700;ring(g,px,y,3+q*10,R,(1-q)*.8)}
+    txt(g,bad?'500 \u00b7 LOUD':'200 OK',px+9,y,bad?R:G)},
+  /* 02 · the night-shift fix, automated: crash -> exit 3 -> restart policy -> running */
+  restart(o,g,x0,x1,y,t){const L=x1-x0-82,cx=x0+L*.55,ph=(t%4200)/4200;line(g,x0,x0+L,y);let s='running',sc=SL;
+    if(ph<.45){const x=x0+ph/.45*(cx-x0);for(let k=1;k<12;k++)dot(g,x-k*3,y,1.4,C,.6-k*.05);glw(g,x,y,6,C,.6);dot(g,x,y,2.4,WH,1)}
+    else if(ph<.6){const k=(ph-.45)/.15;for(let i=0;i<16;i++){const a=i/16*6.283;dot(g,cx+Math.cos(a)*k*13,y+Math.sin(a)*k*7,1.4,R,1-k)}glw(g,cx,y,10,R,.8*(1-k));s='exit 3';sc=R}
+    else{const k=(ph-.6)/.4,x=cx+k*(x0+L-cx);if(k<.35)ring(g,cx,y,3+k*30,C,(1-k/.35)*.8);for(let j=1;j<12;j++)if(x-j*3>cx)dot(g,x-j*3,y,1.4,G,.6-j*.05);glw(g,x,y,6,G,.6);dot(g,x,y,2.4,WH,1);s='restarted \u2713';sc=G}
+    dot(g,cx,y-6,1,R,.5);dot(g,cx,y+6,1,R,.5);txt(g,s,x0+L+10,y,sc)},
+  /* 03 · every change needs a way back: deploy v5, it fails, roll back to v4 */
+  rollback(o,g,x0,x1,y,t){const L=x1-x0-88,X=i=>x0+i/4*L,ph=(t%5200)/5200;line(g,x0,x0+L,y);let hx,hy=y,s,sc,cur;
+    if(ph<.45){const k=ph/.45;hx=X(2)+k*(X(4)-X(2));cur=2+k*2;s='deploy v5';sc=A}
+    else if(ph<.6){hx=X(4);cur=4;s='v5 failed';sc=R}
+    else if(ph<.82){const k=(ph-.6)/.22;hx=X(4)-k*(X(4)-X(3));hy=y-Math.sin(k*Math.PI)*8;cur=4-k;s='rollback';sc=A}
+    else{hx=X(3);cur=3;s='v4 \u2713 stable';sc=G}
+    for(let i=0;i<5;i++){const x=X(i),f=i===4&&ph>=.45&&ph<.82,on=i<=cur+.01;glw(g,x,y,f?9:5,f?R:on?A:SL,f?.8:on?.4:.15);dot(g,x,y,f?3:2,f?R:on?A:SL,on?1:.5)}
+    if(ph>=.82){const q=(ph-.82)/.18;ring(g,X(3),y,3+q*11,G,(1-q)*.8)}
+    glw(g,hx,hy,6,WH,.7);dot(g,hx,hy,2.4,WH,1);txt(g,s,x0+L+10,y,sc)},
+  /* 04 · least privilege: requests hit a deny-by-default gate, only the one with a role gets through */
+  least(o,g,x0,x1,y,t){const L=x1-x0-98,gx=x0+L*.66;line(g,x0,x0+L,y);
+    for(let k=-8;k<=8;k+=2)dot(g,gx,y+k,1.3,'167,139,250',.75);glw(g,gx,y,9,'167,139,250',.25);let s='deny by default',sc=SL;
+    for(let k=0;k<6;k++){const u=((t*.00024)+k/6)%1;if(k===0){const x=x0+u*L;for(let j=1;j<10;j++)dot(g,x-j*3,y,1.3,G,.55-j*.05);glw(g,x,y,6,G,.6);dot(g,x,y,2.4,WH,1);if(x>gx){s='IAM role \u2713';sc=G}}
+      else if(u<.5){const x=x0+u/.5*(gx-x0-4);dot(g,x,y,2,A,.85)}else{const k2=(u-.5)/.5,x=gx-4-k2*(gx-x0)*.3;dot(g,x,y-k2*5,2,R,1-k2);if(k2<.15){glw(g,gx,y,10,R,.7*(1-k2/.15));s='403 denied';sc=R}}}
+    txt(g,s,x0+L+10,y,sc)},
+  /* credentials: where each cert sits on the 2023 -> now timeline, still valid */
+  cred(o,g,x0,x1,y,t){const L=x1-x0,X=v=>x0+(v-2023)/4*L,d=new Date(),now=Math.min(2027,Math.max(o.yr,d.getFullYear()+d.getMonth()/12)),ix=X(o.yr),nx=X(now),c=o.c;
+    line(g,x0,x1,y,SL,.28,3);for(let yr=2023;yr<=2026;yr++){const x=X(yr);dot(g,x,y-3,1,SL,.6);dot(g,x,y+3,1,SL,.6);txt(g,"'"+String(yr).slice(2),x,y+12,SL,'center',8)}
+    const dr=reduce?1:Math.min(1,Math.max(0,(t-o.born-400)/1400)),ex=ix+(nx-ix)*dr;
+    for(let x=ix;x<=ex;x+=1.6)dot(g,x,y,1.5,c,.45+.3*Math.sin(x*.4-t*.006));
+    if(dr>=1){const u=(t*.0004)%1;glw(g,ix+(nx-ix)*u,y,5,WH,.8)}
+    glw(g,nx,y,5,G,.6);dot(g,nx,y,2,G,1);
+    const p=.75+.25*Math.sin(t*.004);glw(g,ix,y,11,c,.6*p);g.strokeStyle=`rgba(${c},${.8*p})`;g.lineWidth=1;g.beginPath();g.moveTo(ix-7,y);g.lineTo(ix+7,y);g.moveTo(ix,y-7);g.lineTo(ix,y+7);g.stroke();dot(g,ix,y,2.6,WH,1);
+    const q=(t%3200)/1400;if(q<1)ring(g,ix,y,3+q*12,c,(1-q)*.7);
+    if(dr>=1)txt(g,'valid \u2713',x1,y-12,G,'right',8)},
+  /* production instincts: read the logs -> blast radius -> restore -> root cause */
+  incident(o,g,x0,x1,y,t){const L=x1-x0,N=[['LOGS',R],['BLAST',A],['RESTORE',G],['RCA',C]],X=i=>x0+6+i/3*(L-12),ph=(t%6200)/6200,pos=Math.min(3,ph/.8*3);line(g,X(0),X(3),y);
+    for(let x=X(0);x<=X(0)+(X(3)-X(0))*pos/3;x+=2)dot(g,x,y,1.3,A,.55);
+    N.forEach(([n,c],i)=>{const on=pos>=i-.02;glw(g,X(i),y,on?9:5,c,on?.55:.12);dot(g,X(i),y,on?3:2,c,on?1:.4);txt(g,n,X(i),y+13,on?c:SL,'center',8)});
+    if(ph<.8){const hx=X(0)+(X(3)-X(0))*pos/3;glw(g,hx,y,7,WH,.8);dot(g,hx,y,2.4,WH,1)}else{const q=(ph-.8)/.2;ring(g,X(3),y,3+q*14,C,(1-q)*.8)}},
+  /* I go deep, then I build: three missions, each built, broken on purpose, then fixed */
+  build(o,g,x0,x1,y,t){const L=x1-x0,X=i=>x0+L*(.12+i*.38);line(g,X(0),X(2),y);
+    for(let i=0;i<3;i++){const x=X(i),ph=((t/4800)+i*.33)%1;let c,s;
+      if(ph<.42){const k=ph/.42;c=C;s='BUILD';for(let j=0;j<14;j++){const a=j/14*6.283+t*.002;dot(g,x+Math.cos(a)*(12-k*8),y+Math.sin(a)*(12-k*8)*.6,1.3,C,.4+.5*k)}}
+      else if(ph<.56){const k=(ph-.42)/.14;c=R;s='BREAK';for(let j=0;j<14;j++){const a=j/14*6.283;dot(g,x+Math.cos(a)*k*12,y+Math.sin(a)*k*7,1.4,R,1-k)}glw(g,x,y,10,R,.7*(1-k))}
+      else{c=G;s='FIXED';const q=(ph-.56)/.44;if(q<.4)ring(g,x,y,3+q*25,G,(1-q/.4)*.7)}
+      glw(g,x,y,7,c,.5);dot(g,x,y,2.8,c,1);txt(g,'M0'+(i+1),x,y-12,SL,'center',8);txt(g,s,x,y+13,c,'center',8)}},
+  /* better than I found it: the pager gets quieter from left (noisy) to right (calm) */
+  quiet(o,g,x0,x1,y,t){const L=x1-x0;
+    for(let x=x0;x<=x1;x+=2){const u=(x-x0)/L,env=Math.max(0,1-u*1.15),k=Math.floor((x-x0)/3+t*.01),v=hash(k),hgt=v>.62?env*13*(v-.62)/.38:0,c=env>.55?R:env>.25?A:G;
+      dot(g,x,y,1.1,c,.35);for(let s=2;s<=hgt;s+=2)dot(g,x,y-s,1.2,c,.85-s/18)}
+    txt(g,'pages \u2193',x1,y+12,G,'right',8)}};
+ (function loop(t){requestAnimationFrame(loop);for(const o of items){if(!o.vis||!o.W)continue;const g=o.g;g.clearRect(0,0,o.W,o.H);
+   const x0=o.ax+16,x1=o.W-26;if(x1-x0<60)continue;g.globalCompositeOperation='lighter';DRAW[o.kind](o,g,x0,x1,o.ay,reduce?4000:t);g.globalCompositeOperation='source-over'}})(0);
+})();
+
 /* ---------- theme toggle + copy e-mail ---------- */
 (()=>{const b=document.body,t=document.getElementById('themeT'),ico=t.querySelector('.ti');
  const set=m=>{b.classList.toggle('light',m==='light');ico.textContent=m==='light'?'☀':'☾';try{sessionStorage.setItem('gn-theme',m)}catch(e){}};
@@ -2559,5 +3315,6 @@ scene('replay3',D=>{const R=rng(9),shield=[],rings=[[],[],[]],vortex=[],core=sph
    try{await navigator.clipboard.writeText(v)}catch(e){const r=document.createRange(),sel=getSelection();r.selectNodeContents(c.parentElement.querySelector('.mail-t')||c.parentElement);sel.removeAllRanges();sel.addRange(r);try{document.execCommand('copy')}catch(_){}sel.removeAllRanges()}
    const lb=c.querySelector('em');lb.textContent='copied ✓';c.classList.add('ok');setTimeout(()=>{lb.textContent='click to copy';c.classList.remove('ok')},1800)})})();
 </script>
-</body>
-</html>
+
+
+</body></html>
