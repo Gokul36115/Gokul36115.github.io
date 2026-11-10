@@ -1399,9 +1399,46 @@ body.light .evt span{background:rgba(255,255,255,.94);color:#0B1220;border-color
 @media (max-width:1000px){.evg{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:170px}.evt.big,.evt.wide{grid-column:1/-1}}
 @media (max-width:760px){.evg-head{margin:22px 20px 0;font-size:10px;letter-spacing:1.6px}.evg{padding:12px 20px 24px;gap:10px;grid-auto-rows:150px}.evt.big{grid-row:span 2}.evt span{font-size:11px;padding:6px 9px}}
 @media (max-width:480px){.evg{grid-template-columns:1fr;grid-auto-rows:190px}.evt.big{grid-row:span 1}.evt.big img{padding:8px 8px 48px}.evg-head span+span{display:none}}
+
+/* ---------- pre-flight boot (once per visit) ---------- */
+.boot{position:fixed;inset:0;z-index:400;display:grid;place-items:center;padding:24px;background:#020306;clip-path:inset(0 0 0 0);transition:clip-path 1s cubic-bezier(.77,0,.18,1)}
+.boot[hidden]{display:none}
+.boot.out{clip-path:inset(0 0 100% 0)}
+.boot-in{width:min(460px,100%)}
+.boot-k{display:flex;align-items:center;gap:10px;margin-bottom:16px;font-family:var(--mono);font-size:11px;letter-spacing:3px;color:var(--green)}
+.boot pre{margin:0;min-height:7.6em;font-family:var(--mono);font-size:clamp(12px,1.4vw,14px);line-height:1.9;color:#94A3B8;white-space:pre-wrap}
+.boot pre b{color:#FDBA74;font-weight:600}.boot pre i{color:#E2E8F0;font-style:normal}.boot pre em{color:#6EE7B7;font-style:normal}
+.boot-bar{height:2px;margin-top:18px;border-radius:2px;background:rgba(148,163,184,.16);overflow:hidden}
+.boot-bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,#22D3EE,#A78BFA,#FDBA74);box-shadow:0 0 12px rgba(167,139,250,.6);transition:width 1.1s cubic-bezier(.2,.7,.2,1)}
+.boot.light{background:#F5F3EE}.boot.light pre{color:#475569}.boot.light pre i{color:#0B1220}.boot.light pre b{color:#B45309}.boot.light pre em{color:#047857}
+/* ---------- scroll progress ---------- */
+.sprog{position:fixed;top:0;left:0;right:0;height:2px;z-index:70;transform-origin:0 50%;transform:scaleX(0);pointer-events:none;background:linear-gradient(90deg,#22D3EE,#A78BFA 55%,#FDBA74);box-shadow:0 0 10px rgba(167,139,250,.55)}
+body.light .sprog{background:linear-gradient(90deg,#0E7490,#7C3AED 55%,#D97706);box-shadow:none}
+/* ---------- active nav link ---------- */
+.links a{position:relative;transition:color .3s}
+.links a:after{content:"";position:absolute;left:0;right:0;bottom:-7px;height:2px;border-radius:2px;background:linear-gradient(90deg,var(--cyan),var(--violet));transform:scaleX(0);transform-origin:0 50%;transition:transform .4s cubic-bezier(.2,.7,.2,1);box-shadow:0 0 8px rgba(34,211,238,.6)}
+.links a.on{color:#fff}.links a.on:after{transform:scaleX(1)}
+body.light .links a.on{color:#0B1220}body.light .links a:after{box-shadow:none}
+/* ---------- theme switch: the new theme opens as a circle from the toggle ---------- */
+::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}
+::view-transition-old(root){z-index:1}::view-transition-new(root){z-index:2}
+html.theme-snap *:not(.theme-t),html.theme-snap *:not(.theme-t)::before,html.theme-snap *::after{transition:none!important}
 </style>
 </head>
 <body>
+<div class="boot" id="boot" hidden="" aria-hidden="true"><div class="boot-in"><div class="boot-k"><span class="blip"></span>PRE-FLIGHT CHECK</div><pre id="bootLog"></pre><div class="boot-bar"><span id="bootBar"></span></div></div></div>
+<script>
+/* pre-flight boot: plays once per visit, skipped with reduced motion */
+(function(){var el=document.getElementById('boot'),seen=false;try{seen=sessionStorage.getItem('gn-boot')==='1';sessionStorage.setItem('gn-boot','1')}catch(e){}
+ if(!el||seen||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+ try{if(sessionStorage.getItem('gn-theme')==='light')el.classList.add('light')}catch(e){}
+ window.GN_BOOT=1250;el.hidden=false;var log=document.getElementById('bootLog'),bar=document.getElementById('bootBar'),i=0,
+ L=['<b>&gt;</b> preflight  <i>gokul-n/portfolio</i>','<b>&gt;</b> systems    <i>3 missions \u00b7 32 AWS resources \u00b7 4 certs</i>','<b>&gt;</b> health     every check passed \u00b7 <em>STATUS: OK</em>','<b>&gt;</b> launch     <em>T-0 \u2713</em>'];
+ requestAnimationFrame(function(){requestAnimationFrame(function(){bar.style.width='100%'})});
+ (function line(){log.innerHTML+=(i?'\n':'')+L[i];i++;if(i<L.length)setTimeout(line,230)})();
+ setTimeout(function(){el.classList.add('out')},1250);setTimeout(function(){el.hidden=true},2300)})();
+</script>
+<div class="sprog" id="sprog" aria-hidden="true"></div>
 <div class="nebula" id="nebula"></div>
 <canvas id="space"></canvas>
 <div class="grain"></div><div class="vignette"></div>
@@ -2420,7 +2457,7 @@ function scramble(el){const final=el.dataset.text;let f=0;const total=final.leng
   const q=[...final].map((ch,i)=>({ch,start:Math.floor(Math.random()*12)+i,end:Math.floor(Math.random()*12)+i*2+12}));
   (function step(){let out='';for(const c of q){if(f>=c.end)out+=c.ch;else if(f>=c.start&&c.ch!==' ')out+=`<span style="color:#22D3EE">${glyphs[Math.floor(Math.random()*glyphs.length)]}</span>`;else out+=c.ch===' '?' ':'&nbsp;'}
     el.innerHTML=out;f++;if(f<=total)requestAnimationFrame(step);else el.textContent=final})()}
-if(!reduce){$$('.scramble').forEach((el,i)=>setTimeout(()=>scramble(el),250+i*250))}
+if(!reduce){$$('.scramble').forEach((el,i)=>setTimeout(()=>scramble(el),(window.GN_BOOT||0)+250+i*250))}
 
 /* ---------- typed ---------- */
 const roles=['> keeping production up, 24×7','> WebSphere · Liberty · IHS','> Kubernetes · Helm · Argo CD · Prometheus','> Terraform · Docker · Jenkins · CloudWatch','> Python · Lambda · API Gateway · Auth0 SSO','> automating reliability on AWS and Kubernetes'];
@@ -3130,15 +3167,29 @@ function dustFrame(g,t,p,S,mx,my,avoid){
 })();
 
 
+
+/* ---------- scroll progress bar + active nav link ---------- */
+(()=>{const bar=document.getElementById('sprog'),links=[...document.querySelectorAll('.links a')];
+ const GROUP={journey:'#journey',beliefs:'#beliefs',orbit:'#orbit',mission:'#mission',replay1:'#mission',mission2:'#mission',replay2:'#mission',mission3:'#mission',replay3:'#mission',arsenal:'#arsenal',credentials:'#credentials'};
+ const secs=Object.keys(GROUP).map(id=>document.getElementById(id)).filter(Boolean);let cur=null,queued=false;
+ function upd(){queued=false;const doc=document.documentElement,max=Math.max(1,doc.scrollHeight-innerHeight);if(bar)bar.style.transform=`scaleX(${Math.min(1,scrollY/max)})`;
+   const mid=innerHeight*.45;let act=null;for(const s of secs){const r=s.getBoundingClientRect();if(r.top<=mid&&r.bottom>mid){act=GROUP[s.id];break}}
+   if(act!==cur){cur=act;links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')===act))}}
+ const q=()=>{if(!queued){queued=true;requestAnimationFrame(upd)}};addEventListener('scroll',q,{passive:true});addEventListener('resize',q);addEventListener('load',q);upd()})();
+
 /* ---------- theme toggle + copy e-mail ---------- */
 (()=>{const b=document.body,t=document.getElementById('themeT'),ico=t.querySelector('.ti');
  const set=m=>{b.classList.toggle('light',m==='light');ico.textContent=m==='light'?'☀':'☾';try{sessionStorage.setItem('gn-theme',m)}catch(e){}};
  let saved='dark';try{saved=sessionStorage.getItem('gn-theme')||'dark'}catch(e){}set(saved);
- t.addEventListener('click',()=>set(b.classList.contains('light')?'dark':'light'));
+ let busy=false;const R0=document.documentElement;
+ t.addEventListener('click',()=>{if(busy)return;const m=b.classList.contains('light')?'dark':'light';
+   if(!document.startViewTransition||matchMedia('(prefers-reduced-motion: reduce)').matches){set(m);return}
+   busy=true;const r=t.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2,R=Math.hypot(Math.max(x,innerWidth-x),Math.max(y,innerHeight-y));
+   R0.classList.add('theme-snap');const vt=document.startViewTransition(()=>set(m)),done=()=>{R0.classList.remove('theme-snap');busy=false};
+   vt.ready.then(()=>{R0.classList.remove('theme-snap');R0.animate({clipPath:[`circle(0px at ${x}px ${y}px)`,`circle(${R}px at ${x}px ${y}px)`]},{duration:900,easing:'cubic-bezier(.65,0,.35,1)',pseudoElement:'::view-transition-new(root)'})},done);
+   vt.finished.then(done,done)});
  const c=document.getElementById('copyMail');c.addEventListener('click',async()=>{const v='gokul36115@gmail.com';
    try{await navigator.clipboard.writeText(v)}catch(e){const r=document.createRange(),sel=getSelection();r.selectNodeContents(c.parentElement.querySelector('.mail-t')||c.parentElement);sel.removeAllRanges();sel.addRange(r);try{document.execCommand('copy')}catch(_){}sel.removeAllRanges()}
    const lb=c.querySelector('em');lb.textContent='copied ✓';c.classList.add('ok');setTimeout(()=>{lb.textContent='click to copy';c.classList.remove('ok')},1800)})})();
 </script>
-
-
 </body></html>
